@@ -601,6 +601,10 @@ Sinta-se livre para fork, testes e PRs — mantenha as **regras de honestidade**
 
 ---
 
+## 📚 Documentação técnica
+
+- [Camada de IA (Fase 1, 2 e roadmap)](docs/ia.md)
+
 ## 💚 Princípio final
 
 ```text
