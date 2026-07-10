@@ -16,9 +16,13 @@ const display = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "CareerTwin — Mentor de carreira com IA",
+  title: "CareerTwin — Evolua, Reposicione e Conquiste",
   description:
-    "Analise currículo, LinkedIn e vagas. Receba recomendações, diagnóstico de aderência e plano de evolução profissional. Sem promessas de contratação.",
+    "Mentor de carreira com IA. Analise currículo, LinkedIn e vagas. Receba recomendações, diagnóstico de aderência e plano de evolução. Sem promessas de contratação.",
+  icons: {
+    icon: "/logo-careertwin.png",
+    apple: "/logo-careertwin.png",
+  },
 };
 
 export default function RootLayout({

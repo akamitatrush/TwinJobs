@@ -1,7 +1,11 @@
-# 🧭 CareerTwin
+# CareerTwin
 
 <p align="center">
-  <strong>Seu gêmeo de carreira com IA</strong><br/>
+  <img src="public/logo-careertwin.png" alt="CareerTwin" width="220" />
+</p>
+
+<p align="center">
+  <strong>Evolua, Reposicione e Conquiste.</strong><br/>
   Mentor digital para profissionais brasileiros em <em>recolocação</em> ou <em>transição de carreira</em>
 </p>
 
@@ -534,7 +538,7 @@ AI_PROVIDER=openai   →  OpenAI; se quebrar → mock
 
 ## ☁️ Deploy na Vercel (visão rápida)
 
-1. Importe o repo `akamitatrush/TwinJobs` (código do **CareerTwin**) na Vercel  
+1. Importe o repo `akamitatrush/CareerTwin` na Vercel  
 2. Configure as **mesmas env vars** do `.env.local` (Production)  
 3. `NEXT_PUBLIC_APP_URL` = URL do deploy (ex. `https://careertwin.vercel.app`)  
 4. No Supabase, adicione Site URL + Redirect da Vercel  

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MarketingHeader } from "@/components/AppHeader";
+import { Logo } from "@/components/Logo";
 import { Badge, Button, Card } from "@/components/ui";
 import {
   ArrowRight,
@@ -383,15 +384,12 @@ export default function LandingPage() {
       </section>
 
       <footer className="border-t border-card-border bg-white py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-sm font-semibold">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-white">
-              <Sparkles className="h-3.5 w-3.5" />
-            </span>
-            CareerTwin
-          </div>
-          <p className="text-sm text-muted">
-            Mentor de carreira · © {new Date().getFullYear()} · Sem promessas de contratação
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
+          <Logo href="/" size="md" />
+          <p className="text-sm text-muted text-center sm:text-right">
+            Evolua, Reposicione e Conquiste · © {new Date().getFullYear()}
+            <br />
+            Mentor de carreira · Sem promessas de contratação
           </p>
         </div>
       </footer>

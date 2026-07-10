@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui";
+import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
-import { LogOut, Menu, Sparkles, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const nav = [
@@ -14,31 +15,6 @@ const nav = [
   { href: "/planos", label: "Planos" },
   { href: "/configuracoes", label: "Configurações" },
 ];
-
-function Logo({ href = "/", light = false }: { href?: string; light?: boolean }) {
-  return (
-    <Link href={href} className="flex items-center gap-2.5 group">
-      <span
-        className={cn(
-          "relative flex h-9 w-9 items-center justify-center rounded-xl shadow-sm transition-transform group-hover:scale-105",
-          light
-            ? "bg-white/10 ring-1 ring-white/15 text-white"
-            : "bg-gradient-to-br from-teal-500 to-teal-700 text-white"
-        )}
-      >
-        <Sparkles className="h-4 w-4" />
-      </span>
-      <span
-        className={cn(
-          "text-[17px] font-semibold tracking-tight",
-          light ? "text-white" : "text-foreground"
-        )}
-      >
-        Career<span className={light ? "text-teal-300" : "text-primary"}>Twin</span>
-      </span>
-    </Link>
-  );
-}
 
 export function AppHeader({ fullName }: { fullName?: string }) {
   const pathname = usePathname();
@@ -59,9 +35,9 @@ export function AppHeader({ fullName }: { fullName?: string }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-card-border/80 bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo href="/dashboard" />
+    <header className="sticky top-0 z-40 border-b border-card-border/80 bg-white/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Logo href="/dashboard" size="sm" priority />
 
         <nav className="hidden md:flex items-center gap-0.5 rounded-full bg-muted-bg/80 p-1 ring-1 ring-card-border/60">
           {nav.map((item) => (
@@ -111,7 +87,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
               className={cn(
                 "block rounded-xl px-3 py-2.5 text-sm font-medium",
                 pathname.startsWith(item.href)
-                  ? "bg-primary-soft text-primary-hover"
+                  ? "bg-primary-soft text-orange-950"
                   : "text-foreground hover:bg-muted-bg"
               )}
             >
@@ -132,9 +108,9 @@ export function AppHeader({ fullName }: { fullName?: string }) {
 
 export function MarketingHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/70 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo href="/" light />
+    <header className="absolute inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/75 backdrop-blur-md">
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Logo href="/" size="sm" onDark priority />
         <div className="flex items-center gap-2">
           <Link href="/login">
             <Button

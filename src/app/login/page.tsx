@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { Alert, Button, Card, Input, Label } from "@/components/ui";
-import { Compass } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 function LoginForm() {
   const router = useRouter();
@@ -54,12 +54,9 @@ function LoginForm() {
 
   return (
     <div className="flex min-h-full flex-col items-center justify-center px-4 py-12">
-      <Link href="/" className="mb-8 flex items-center gap-2 font-display text-xl text-primary">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-          <Compass className="h-5 w-5" />
-        </span>
-        CareerTwin
-      </Link>
+      <div className="mb-8">
+        <Logo href="/" size="md" priority />
+      </div>
 
       <Card className="w-full max-w-md">
         <h1 className="font-display text-2xl text-foreground">Entrar</h1>

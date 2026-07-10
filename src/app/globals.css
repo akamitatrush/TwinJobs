@@ -14,15 +14,16 @@
   --card-border: #d4d4d8;
   --muted: #3f3f46; /* zinc-700 — legível em fundo claro (antes #71717a era fraco) */
   --muted-bg: #e4e4e7;
-  --primary: #0f766e; /* teal-700 — mais contraste em botões e links */
-  --primary-hover: #115e59;
-  --primary-soft: #ccfbf1;
+  /* Laranja da marca CareerTwin (alinhado ao logo) */
+  --primary: #f04e23;
+  --primary-hover: #d43f18;
+  --primary-soft: #ffe8e0;
   --accent: #4f46e5;
   --accent-soft: #e0e7ff;
   --success: #047857;
   --warning: #b45309;
   --danger: #b91c1c;
-  --ring: #0f766e;
+  --ring: #f04e23;
   --shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%);
   --shadow-lg: 0 0 0 1px rgb(0 0 0 / 5%), 0 12px 40px rgb(0 0 0 / 10%);
   --radius: 0.75rem;
