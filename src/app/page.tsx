@@ -1,5 +1,5 @@
-import { LandingFuturistic } from "@/components/LandingFuturistic";
+import { LandingSoft } from "@/components/LandingSoft";
 
 export default function LandingPage() {
-  return <LandingFuturistic />;
+  return <LandingSoft />;
 }

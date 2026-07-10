@@ -64,7 +64,8 @@
   --color-ink-border: var(--ink-border);
   --color-ink-muted: var(--ink-muted);
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 * {
@@ -153,73 +154,161 @@ h3,
   outline-offset: 2px;
 }
 
-/* ─── Landing futurista (marca laranja) ─── */
-.landing-futuristic {
-  --lf-bg: #070708;
-  --lf-panel: rgb(255 255 255 / 0.04);
-  --lf-border: rgb(255 255 255 / 0.1);
-  background: var(--lf-bg);
-  color: #fafafa;
+/* ─── Landing estilo careertwin.com.br (noir suave) ───
+   Accent da marca: laranja do logo, em tom soft (não cyber).
+*/
+.landing-soft {
+  --site-bg: #0a0a0e;
+  --site-fg: #fafafc;
+  --site-fg-muted: rgba(250, 250, 252, 0.72);
+  --site-fg-dim: rgba(250, 250, 252, 0.58);
+  --site-border: hsla(0, 0%, 100%, 0.08);
+  --site-border-strong: hsla(0, 0%, 100%, 0.16);
+  --site-card-bg: hsla(0, 0%, 100%, 0.04);
+  --site-card-hover: hsla(0, 0%, 100%, 0.06);
+  --site-accent: #ff5922;
+  --site-accent-deep: #e84a16;
+  --site-accent-glow: rgba(255, 89, 34, 0.28);
+  --site-accent-on: #1a0804;
+  --site-mesh: rgba(255, 89, 34, 0.1);
+  --site-mesh-2: rgba(255, 140, 90, 0.06);
+  --radius-pill: 999px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --ease: cubic-bezier(0.25, 1, 0.5, 1);
+
+  background: var(--site-bg);
+  color: var(--site-fg);
+  font-family: var(--font-sans);
+  min-height: 100vh;
 }
 
-.landing-futuristic .grid-bg {
-  background-image:
-    linear-gradient(rgb(255 89 34 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 89 34 / 0.06) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%);
+.landing-soft .site-mesh {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, var(--site-mesh), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, var(--site-mesh-2), transparent 60%);
 }
 
-.landing-futuristic .glow-orb {
-  border-radius: 9999px;
-  filter: blur(80px);
-  pointer-events: none;
+.landing-soft .site-noise {
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.7'/></svg>");
 }
 
-.landing-futuristic .glass {
-  background: rgb(255 255 255 / 0.04);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.landing-futuristic .glass-strong {
-  background: rgb(12 12 14 / 0.72);
-  border: 1px solid rgb(255 255 255 / 0.12);
+.landing-soft .site-card-glass {
+  background: var(--site-card-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--site-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32), 0 0 0 1px hsla(0, 0%, 100%, 0.06) inset;
+  transition:
+    background 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    transform 0.25s var(--ease);
 }
 
-.landing-futuristic .text-gradient-brand {
-  background: linear-gradient(135deg, #fff 0%, #ffb39a 45%, #ff5922 100%);
+.landing-soft .site-card-glass:hover {
+  background: var(--site-card-hover);
+  border-color: var(--site-border-strong);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 89, 34, 0.18) inset;
+}
+
+.landing-soft .site-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--site-accent) 0%, var(--site-accent-deep) 100%);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    filter 0.2s var(--ease);
+  box-shadow: 0 8px 24px var(--site-accent-glow);
+}
+
+.landing-soft .site-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px var(--site-accent-glow);
+  filter: brightness(1.04);
+}
+
+.landing-soft .site-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--site-border-strong);
+  color: var(--site-fg);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.landing-soft .site-btn-secondary:hover {
+  background: var(--site-card-hover);
+  border-color: var(--site-fg-muted);
+  transform: translateY(-1px);
+}
+
+.landing-soft .site-eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  color: var(--site-fg-muted);
+}
+
+.landing-soft .site-h-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--site-fg);
+  line-height: 1.12;
+}
+
+.landing-soft .site-step-number {
+  font-family: var(--font-sans);
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  background-image: linear-gradient(135deg, var(--site-accent) 0%, #ffb39a 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
 }
 
-@keyframes beam {
-  0% {
-    transform: translateY(-20%) translateX(-10%);
-    opacity: 0.3;
+@keyframes siteFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(20%) translateX(10%);
-    opacity: 0.3;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.landing-futuristic .beam {
-  animation: beam 12s ease-in-out infinite;
-}
-
-/* Hero claro (fallback / seções mistas) */
-.hero-brand {
-  background:
-    radial-gradient(ellipse 80% 60% at 0% 0%, rgb(255 89 34 / 14%), transparent 55%),
-    radial-gradient(ellipse 60% 50% at 100% 20%, rgb(255 89 34 / 8%), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, rgb(255 89 34 / 6%), transparent 55%),
-    #faf9f7;
+.landing-soft .site-fade-up {
+  animation: siteFadeUp 0.6s var(--ease) both;
 }
