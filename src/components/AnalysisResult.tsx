@@ -221,6 +221,24 @@ export function AnalysisResult({
         </div>
       </div>
 
+      {/* Materiais insuficientes / confiança baixa */}
+      {(analysis.confidence === "baixa" ||
+        score < 25 ||
+        (recs.length === 0 && translations.length === 0)) && (
+        <Alert tone="warning">
+          <strong>Esta análise ficou limitada.</strong> Score baixo ou abas “vazias” costumam
+          significar que faltou o <em>texto</em> do currículo e/ou do LinkedIn (só link/PDF sem
+          texto colado não entra na IA).{" "}
+          <Link
+            href={`/analise/nova?reanalise=${analysis.id}`}
+            className="font-semibold text-primary underline-offset-2 hover:underline"
+          >
+            Refazer com o texto completo
+          </Link>
+          .
+        </Alert>
+      )}
+
       {/* Resumo executivo */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="flex items-center gap-4">
@@ -530,7 +548,24 @@ export function AnalysisResult({
               </Card>
             ))}
             {filteredRecs.length === 0 && (
-              <p className="text-sm text-muted">Nenhuma recomendação neste filtro.</p>
+              <Card className="border-dashed">
+                <p className="font-semibold">Nenhuma recomendação para exibir</p>
+                <p className="mt-2 text-sm text-muted">
+                  {recs.length === 0
+                    ? "Não há recomendações salvas. Gere uma nova análise com o texto do CV/LinkedIn."
+                    : "Nenhum item neste filtro. Tente “Todas”."}
+                </p>
+                {recs.length === 0 && (
+                  <div className="mt-4">
+                    <Link href={`/analise/nova?reanalise=${analysis.id}`}>
+                      <Button size="sm">
+                        <RefreshCw className="h-3.5 w-3.5" />
+                        Nova análise com materiais
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </Card>
             )}
           </div>
         </div>
@@ -674,7 +709,22 @@ export function AnalysisResult({
             </Card>
           ))}
           {translations.length === 0 && (
-            <p className="text-sm text-muted">Nenhuma tradução gerada para esta análise.</p>
+            <Card className="border-dashed">
+              <p className="font-semibold text-foreground">Nenhuma tradução nesta análise</p>
+              <p className="mt-2 text-sm text-muted leading-relaxed">
+                A aba de tradução precisa de trechos reais do currículo ou LinkedIn. Se você
+                enviou só o link, PDF sem texto colado, ou materiais muito curtos, não há o que
+                reescrever com autenticidade.
+              </p>
+              <div className="mt-4">
+                <Link href={`/analise/nova?reanalise=${analysis.id}`}>
+                  <Button size="sm">
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    Reanalisar com texto completo
+                  </Button>
+                </Link>
+              </div>
+            </Card>
           )}
         </div>
       )}

@@ -166,14 +166,29 @@ export function AnalysisWizard() {
         .filter((t) => t.length > 10)
         .join("\n\n");
 
-      if (!finalResumeText && !finalLinkedinText && !linkedinUrl) {
+      // URL sozinha NÃO basta (não fazemos scraping). Precisa de texto real.
+      const MIN_TEXT = 80;
+      const hasResume = finalResumeText.length >= MIN_TEXT;
+      const hasLinkedinBody = finalLinkedinText.length >= MIN_TEXT;
+      if (!hasResume && !hasLinkedinBody) {
         throw new Error(
-          "Envie ao menos o texto do currículo ou do LinkedIn para gerar a análise. Para PDF/DOC, cole o texto no campo indicado."
+          "Para uma análise real, cole o texto do currículo e/ou do LinkedIn (mín. ~80 caracteres). " +
+            "Só o link do LinkedIn ou PDF sem texto colado não é suficiente — no MVP a IA não lê esses arquivos sozinha."
         );
       }
 
       if (!wantsSuggestions && !targetRole.trim()) {
         throw new Error("Informe o cargo-alvo ou marque a opção de receber sugestões.");
+      }
+
+      // Vaga: se marcou incluir, precisa de descrição em texto (título/empresa sozinhos não bastam)
+      if (includeJob) {
+        const hasJobBody = finalJobText.length >= 40;
+        if (!hasJobBody && !jobTitle.trim()) {
+          throw new Error(
+            "Na vaga opcional, cole a descrição da vaga ou ao menos o título. Título+empresa sem texto gera aderência fraca."
+          );
+        }
       }
 
       const title = wantsSuggestions
@@ -395,8 +410,15 @@ export function AnalysisWizard() {
   }
 
   function canNext(): boolean {
-    if (step === 1) return Boolean(resumeText.trim() || resumeFile);
-    if (step === 2) return Boolean(linkedinUrl || linkedinText.trim() || linkedinFile);
+    // Avançar na etapa: arquivo/link ok, mas o envio final exige texto (ver submit)
+    if (step === 1) return Boolean(resumeText.trim().length >= 40 || resumeFile);
+    if (step === 2)
+      return Boolean(
+        linkedinText.trim().length >= 40 ||
+          linkedinUrl ||
+          linkedinFile ||
+          resumeText.trim().length >= 80
+      );
     if (step === 3) return wantsSuggestions || Boolean(targetRole.trim());
     return true;
   }
@@ -446,9 +468,14 @@ export function AnalysisWizard() {
       {step === 1 && (
         <Card className="animate-fade-up space-y-4">
           <h2 className="font-display text-2xl">Currículo</h2>
+          <Alert tone="info" className="!mt-0">
+            <strong>Obrigatório colar o texto</strong> (ou TXT). PDF/DOC só são guardados — a IA
+            do MVP <em>não</em> extrai PDF sozinha. Sem texto de CV ou LinkedIn a análise fica
+            vazia.
+          </Alert>
           <p className="text-sm text-muted">
-            Formatos aceitos: PDF, DOC, DOCX, TXT. Arquivos PDF/DOC são apenas armazenados — o
-            texto usado na análise vem do campo abaixo (TXT é lido no navegador).
+            Formatos de upload: PDF, DOC, DOCX, TXT. O que entra na análise é o campo “Colar
+            texto”.
           </p>
           <div>
             <Label>Upload do currículo</Label>
@@ -487,9 +514,12 @@ export function AnalysisWizard() {
       {step === 2 && (
         <Card className="animate-fade-up space-y-4">
           <h2 className="font-display text-2xl">LinkedIn</h2>
+          <Alert tone="warning" className="!mt-0">
+            <strong>Só o link não analisa o perfil.</strong> Cole Sobre + Experiências (ou o
+            texto exportado). Sem isso + sem texto do currículo, o mentor não tem o que avaliar.
+          </Alert>
           <p className="text-sm text-muted">
-            O link é apenas armazenado — não fazemos scraping. Prefira colar o texto do perfil ou
-            o PDF exportado + texto.
+            O link é só referência (sem scraping). O conteúdo da análise vem do texto colado.
           </p>
           <div>
             <Label htmlFor="liUrl">Link público do LinkedIn</Label>

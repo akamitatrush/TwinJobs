@@ -60,15 +60,33 @@ export async function POST(request: Request) {
       .update({ status: "processing" })
       .eq("id", body.analysis_id);
 
+    const resumeLen = (body.resume_text || "").trim().length;
+    const linkedinLen = (body.linkedin_text || "").trim().length;
+    const hasUsableText = resumeLen >= 80 || linkedinLen >= 80;
+
     console.info("[api/analyze] start", {
       analysis_id: body.analysis_id,
       user_id: user.id,
       area: body.target_area || analysis.target_area,
-      has_resume: Boolean(body.resume_text?.trim()),
-      has_linkedin: Boolean(body.linkedin_text?.trim()),
+      resume_chars: resumeLen,
+      linkedin_chars: linkedinLen,
       has_job: Boolean(body.job_description_text?.trim()),
       jargons: market_terms.length,
     });
+
+    if (!hasUsableText) {
+      console.warn("[api/analyze] materiais insuficientes — bloqueando análise vazia");
+      // remove o registro órfão criado pelo wizard (evita score 15 “vazio” no dashboard)
+      await supabase.from("career_analyses").delete().eq("id", body.analysis_id);
+      return NextResponse.json(
+        {
+          error:
+            "Materiais insuficientes: cole o texto do currículo e/ou do LinkedIn (mín. ~80 caracteres). Link ou PDF sozinho não é analisado no MVP.",
+          code: "INSUFFICIENT_MATERIALS",
+        },
+        { status: 400 }
+      );
+    }
 
     const { result, provider, usedFallback, error: aiError } = await generateCareerAnalysis({
       user_id: user.id,
