@@ -31,7 +31,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="flex min-h-full flex-col bg-[#faf9f7]">
       <AppHeader fullName={fullName} />
       <main className="flex-1">{children}</main>
     </div>

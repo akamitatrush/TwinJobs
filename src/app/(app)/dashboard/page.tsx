@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Badge, Button, Card, EmptyState, PageShell } from "@/components/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  EmptyState,
+  PageHeader,
+  PageShell,
+  StatCard,
+} from "@/components/ui";
 import { STATUS_ANALYSIS, label } from "@/lib/labels";
 import { formatDateBR } from "@/lib/utils";
 import type { CareerAnalysis } from "@/lib/types";
@@ -65,44 +73,31 @@ export default async function DashboardPage() {
 
   return (
     <PageShell>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="font-display text-3xl text-foreground">Olá, {firstName}</h1>
-          <p className="mt-1 text-muted">
-            Acompanhe suas análises e o progresso do seu posicionamento profissional.
-          </p>
-        </div>
-        <Link href="/analise/nova">
-          <Button size="lg">
-            <Sparkles className="h-4 w-4" />
-            Nova análise
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        title={`Olá, ${firstName}`}
+        description="Acompanhe suas análises e o progresso do seu posicionamento profissional."
+        action={
+          <Link href="/analise/nova">
+            <Button size="lg">
+              <Sparkles className="h-4 w-4" />
+              Nova análise
+            </Button>
+          </Link>
+        }
+      />
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <p className="text-sm text-muted">Total de análises</p>
-          <p className="mt-2 font-display text-3xl text-foreground">{list.length}</p>
-        </Card>
-        <Card>
-          <p className="text-sm text-muted">Última análise</p>
-          <p className="mt-2 font-display text-xl text-foreground">
-            {lastAnalysis ? formatDateBR(lastAnalysis.created_at) : "—"}
-          </p>
-        </Card>
-        <Card>
-          <p className="text-sm text-muted">Recomendações pendentes</p>
-          <p className="mt-2 font-display text-3xl text-foreground">{pendingRecs}</p>
-        </Card>
-        <Card>
-          <p className="text-sm text-muted">Ações concluídas</p>
-          <p className="mt-2 font-display text-3xl text-foreground">{completedActions}</p>
-        </Card>
+        <StatCard label="Total de análises" value={list.length} />
+        <StatCard
+          label="Última análise"
+          value={lastAnalysis ? formatDateBR(lastAnalysis.created_at) : "—"}
+        />
+        <StatCard label="Recomendações pendentes" value={pendingRecs} />
+        <StatCard label="Ações concluídas" value={completedActions} />
       </div>
 
       {/* Checklist qualidade */}
-      <Card className="mt-6">
+      <Card variant="brand" className="mt-6">
         <h2 className="font-semibold text-foreground flex items-center gap-2">
           <ClipboardList className="h-4 w-4 text-primary" />
           Checklist do perfil
@@ -155,7 +150,11 @@ export default async function DashboardPage() {
         ) : (
           <div className="mt-4 space-y-3">
             {list.map((a) => (
-              <Card key={a.id} className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <Card
+                key={a.id}
+                variant="interactive"
+                className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+              >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-semibold text-foreground truncate">{a.title}</h3>

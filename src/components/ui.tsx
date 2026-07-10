@@ -4,30 +4,74 @@ import {
   type ButtonHTMLAttributes,
   type InputHTMLAttributes,
   type TextareaHTMLAttributes,
+  type ReactNode,
 } from "react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  CheckCircle2,
+  Info,
+  Loader2,
+} from "lucide-react";
+
+/* ─────────────────────────────────────────────
+   BUTTON
+───────────────────────────────────────────── */
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2",
+  [
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap",
+    "font-semibold tracking-[-0.01em]",
+    "transition-all duration-200 ease-out",
+    "cursor-pointer select-none",
+    "disabled:opacity-45 disabled:pointer-events-none disabled:shadow-none",
+    "active:scale-[0.98]",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  ].join(" "),
   {
     variants: {
       variant: {
-        primary:
-          "bg-primary text-white shadow-sm hover:bg-primary-hover hover:shadow-md",
-        secondary:
-          "bg-primary-soft text-[color:var(--brand-hover)] hover:bg-[color:var(--brand-muted)]",
-        ghost: "bg-transparent text-foreground hover:bg-muted-bg",
-        outline:
-          "border-2 border-[color:var(--card-border)] bg-white text-foreground hover:border-neutral-400 hover:bg-muted-bg",
-        danger: "bg-danger text-white hover:bg-red-700",
-        dark: "bg-ink text-white hover:bg-neutral-800 shadow-sm",
-        white: "bg-white text-ink hover:bg-neutral-100 shadow-sm font-semibold",
-        "on-dark":
-          "border-2 border-white/90 bg-transparent text-white hover:bg-white hover:text-ink",
+        primary: [
+          "bg-gradient-to-b from-[#ff6b38] to-primary text-white",
+          "shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_4px_14px_rgba(255,89,34,0.35)]",
+          "hover:from-[#ff7a4d] hover:to-primary-hover hover:shadow-[0_1px_0_0_rgba(255,255,255,0.25)_inset,0_6px_20px_rgba(255,89,34,0.4)]",
+        ].join(" "),
+        secondary: [
+          "bg-primary-soft text-[color:var(--brand-hover)]",
+          "border border-orange-200/80",
+          "hover:bg-[#ffd9cc] hover:border-orange-300",
+        ].join(" "),
+        ghost: "bg-transparent text-foreground hover:bg-muted-bg text-neutral-700",
+        outline: [
+          "border border-card-border bg-white text-foreground",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+          "hover:bg-muted-bg hover:border-neutral-300",
+        ].join(" "),
+        danger: [
+          "bg-danger text-white",
+          "shadow-[0_4px_12px_rgba(220,38,38,0.25)]",
+          "hover:bg-red-700",
+        ].join(" "),
+        dark: [
+          "bg-neutral-900 text-white",
+          "shadow-[0_4px_14px_rgba(0,0,0,0.2)]",
+          "hover:bg-neutral-800",
+        ].join(" "),
+        white: [
+          "bg-white text-neutral-900",
+          "shadow-[0_4px_16px_rgba(0,0,0,0.1)]",
+          "hover:bg-neutral-50",
+        ].join(" "),
+        "on-dark": [
+          "border border-white/25 bg-white/5 text-white backdrop-blur-sm",
+          "hover:bg-white hover:text-neutral-900 hover:border-white",
+        ].join(" "),
       },
       size: {
-        sm: "h-9 px-3.5 text-sm rounded-lg",
-        md: "h-11 px-5 text-sm rounded-xl",
-        lg: "h-12 px-7 text-[15px] rounded-xl",
+        sm: "h-9 px-3.5 text-[13px] rounded-lg gap-1.5 [&_svg]:h-3.5 [&_svg]:w-3.5",
+        md: "h-11 px-5 text-sm rounded-xl [&_svg]:h-4 [&_svg]:w-4",
+        lg: "h-12 px-7 text-[15px] rounded-xl [&_svg]:h-4.5 [&_svg]:w-4.5",
+        icon: "h-10 w-10 rounded-xl p-0 [&_svg]:h-4 [&_svg]:w-4",
       },
     },
     defaultVariants: {
@@ -41,10 +85,40 @@ export function Button({
   className,
   variant,
   size,
+  loading,
+  children,
+  disabled,
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>) {
+}: ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & { loading?: boolean }) {
   return (
-    <button className={cn(buttonVariants({ variant, size }), className)} {...props} />
+    <button
+      className={cn(buttonVariants({ variant, size }), className)}
+      disabled={disabled || loading}
+      {...props}
+    >
+      {loading && <Loader2 className="animate-spin" />}
+      {children}
+    </button>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   FIELD / INPUT / TEXTAREA / LABEL
+───────────────────────────────────────────── */
+
+export function Label({
+  className,
+  ...props
+}: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label
+      className={cn(
+        "mb-1.5 block text-[13px] font-semibold tracking-[-0.01em] text-neutral-700",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
@@ -55,8 +129,13 @@ export function Input({
   return (
     <input
       className={cn(
-        "w-full h-11 rounded-xl border border-card-border bg-card px-3.5 text-sm text-foreground placeholder:text-neutral-400 shadow-sm transition",
-        "hover:border-neutral-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none",
+        "w-full h-11 rounded-xl border border-card-border bg-white px-3.5 text-sm text-foreground",
+        "placeholder:text-neutral-400",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
+        "transition-[border-color,box-shadow,background] duration-200",
+        "hover:border-neutral-300",
+        "focus:border-primary focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-primary/15",
+        "disabled:cursor-not-allowed disabled:bg-muted-bg disabled:opacity-70",
         className
       )}
       {...props}
@@ -71,8 +150,13 @@ export function Textarea({
   return (
     <textarea
       className={cn(
-        "w-full min-h-[120px] rounded-xl border border-card-border bg-card px-3.5 py-3 text-sm text-foreground placeholder:text-neutral-400 shadow-sm transition resize-y",
-        "hover:border-neutral-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none",
+        "w-full min-h-[120px] rounded-xl border border-card-border bg-white px-3.5 py-3 text-sm text-foreground resize-y",
+        "placeholder:text-neutral-400",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
+        "transition-[border-color,box-shadow,background] duration-200",
+        "hover:border-neutral-300",
+        "focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15",
+        "disabled:cursor-not-allowed disabled:bg-muted-bg disabled:opacity-70",
         className
       )}
       {...props}
@@ -80,32 +164,112 @@ export function Textarea({
   );
 }
 
-export function Label({
+export function Field({
+  label,
+  htmlFor,
+  hint,
+  error,
+  children,
   className,
-  ...props
-}: React.LabelHTMLAttributes<HTMLLabelElement>) {
+}: {
+  label?: string;
+  htmlFor?: string;
+  hint?: string;
+  error?: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <label
-      className={cn("block text-sm font-semibold text-neutral-800 mb-1.5", className)}
-      {...props}
-    />
+    <div className={cn("space-y-1.5", className)}>
+      {label && <Label htmlFor={htmlFor}>{label}</Label>}
+      {children}
+      {error ? (
+        <p className="text-xs font-medium text-danger flex items-center gap-1">
+          <AlertCircle className="h-3 w-3" />
+          {error}
+        </p>
+      ) : hint ? (
+        <p className="text-xs text-muted leading-relaxed">{hint}</p>
+      ) : null}
+    </div>
   );
 }
+
+/* ─────────────────────────────────────────────
+   CARD
+───────────────────────────────────────────── */
+
+const cardVariants = cva(
+  "rounded-2xl border bg-card text-foreground transition-all duration-200",
+  {
+    variants: {
+      variant: {
+        default: "border-card-border shadow-[var(--shadow)]",
+        elevated:
+          "border-card-border shadow-[0_8px_30px_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.03)]",
+        soft: "border-transparent bg-muted-bg/80 shadow-none",
+        outline: "border-card-border shadow-none",
+        interactive: [
+          "border-card-border shadow-[var(--shadow)] cursor-pointer",
+          "hover:border-orange-200 hover:shadow-[0_12px_32px_rgba(255,89,34,0.08),0_0_0_1px_rgba(255,89,34,0.08)]",
+          "hover:-translate-y-0.5",
+        ].join(" "),
+        brand: "border-orange-100 bg-gradient-to-br from-white to-primary-soft/50 shadow-[var(--shadow)]",
+      },
+      padding: {
+        none: "p-0",
+        sm: "p-4",
+        md: "p-5 sm:p-6",
+        lg: "p-6 sm:p-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      padding: "md",
+    },
+  }
+);
 
 export function Card({
   className,
+  variant,
+  padding,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof cardVariants>) {
   return (
-    <div
-      className={cn(
-        "rounded-2xl border border-card-border bg-card p-5 shadow-[var(--shadow)]",
-        className
-      )}
-      {...props}
-    />
+    <div className={cn(cardVariants({ variant, padding }), className)} {...props} />
   );
 }
+
+export function CardHeader({
+  className,
+  title,
+  description,
+  action,
+}: {
+  className?: string;
+  title: ReactNode;
+  description?: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className={cn("flex items-start justify-between gap-4", className)}>
+      <div className="min-w-0">
+        <h3 className="text-base font-semibold tracking-[-0.02em] text-foreground">
+          {title}
+        </h3>
+        {description && (
+          <p className="mt-1 text-sm text-muted leading-relaxed">{description}</p>
+        )}
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   BADGE
+───────────────────────────────────────────── */
 
 export function Badge({
   className,
@@ -115,17 +279,20 @@ export function Badge({
   tone?: "neutral" | "primary" | "accent" | "success" | "warning" | "danger";
 }) {
   const tones = {
-    neutral: "bg-neutral-100 text-neutral-800 border border-neutral-300",
-    primary: "bg-primary-soft text-[color:var(--brand-hover)] border border-orange-200",
-    accent: "bg-neutral-900 text-white border border-neutral-900",
-    success: "bg-emerald-50 text-emerald-900 border border-emerald-200",
-    warning: "bg-amber-50 text-amber-950 border border-amber-200",
-    danger: "bg-red-50 text-red-900 border border-red-200",
+    neutral:
+      "bg-neutral-100 text-neutral-700 border-neutral-200/80",
+    primary:
+      "bg-primary-soft text-[color:var(--brand-hover)] border-orange-200/90",
+    accent: "bg-neutral-900 text-white border-neutral-900",
+    success: "bg-emerald-50 text-emerald-800 border-emerald-200/90",
+    warning: "bg-amber-50 text-amber-900 border-amber-200/90",
+    danger: "bg-red-50 text-red-800 border-red-200/90",
   };
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-tight",
+        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5",
+        "text-[11px] font-semibold tracking-[-0.01em] leading-5",
         tones[tone],
         className
       )}
@@ -134,40 +301,88 @@ export function Badge({
   );
 }
 
-export function PageShell({
+/* ─────────────────────────────────────────────
+   ALERT
+───────────────────────────────────────────── */
+
+export function Alert({
   children,
+  tone = "info",
   className,
+  title,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  tone?: "info" | "warning" | "success" | "danger";
   className?: string;
+  title?: string;
 }) {
+  const config = {
+    info: {
+      wrap: "bg-orange-50/90 border-orange-200 text-[color:var(--brand-hover)]",
+      icon: Info,
+    },
+    warning: {
+      wrap: "bg-amber-50 border-amber-200 text-amber-950",
+      icon: AlertTriangle,
+    },
+    success: {
+      wrap: "bg-emerald-50 border-emerald-200 text-emerald-950",
+      icon: CheckCircle2,
+    },
+    danger: {
+      wrap: "bg-red-50 border-red-200 text-red-950",
+      icon: AlertCircle,
+    },
+  }[tone];
+  const Icon = config.icon;
+
   return (
-    <div className={cn("mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8", className)}>
-      {children}
+    <div
+      className={cn(
+        "flex gap-3 rounded-xl border px-4 py-3.5 text-sm leading-relaxed",
+        config.wrap,
+        className
+      )}
+      role="alert"
+    >
+      <Icon className="mt-0.5 h-4 w-4 shrink-0 opacity-90" />
+      <div className="min-w-0">
+        {title && <p className="font-semibold mb-0.5">{title}</p>}
+        <div className="opacity-95">{children}</div>
+      </div>
     </div>
   );
 }
 
-export function EmptyState({
-  title,
-  description,
-  action,
+/* ─────────────────────────────────────────────
+   PROGRESS / SCORE
+───────────────────────────────────────────── */
+
+export function ProgressBar({
+  value,
+  className,
+  showLabel,
 }: {
-  title: string;
-  description: string;
-  action?: React.ReactNode;
+  value: number;
+  className?: string;
+  showLabel?: boolean;
 }) {
+  const v = Math.max(0, Math.min(100, value));
   return (
-    <Card className="text-center py-14 px-6 border-dashed">
-      <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary">
-        <span className="text-lg font-bold">∅</span>
+    <div className={cn("space-y-1.5", className)}>
+      {showLabel && (
+        <div className="flex justify-between text-xs font-medium text-muted">
+          <span>Progresso</span>
+          <span className="tabular-nums text-foreground">{v}%</span>
+        </div>
+      )}
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted-bg">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-primary to-[#ff8f66] transition-all duration-500 ease-out"
+          style={{ width: `${v}%` }}
+        />
       </div>
-      <h3 className="font-display text-2xl text-foreground mb-2">{title}</h3>
-      <p className="text-muted max-w-md mx-auto mb-6 leading-relaxed text-[15px]">
-        {description}
-      </p>
-      {action}
-    </Card>
+    </div>
   );
 }
 
@@ -215,14 +430,15 @@ export function ScoreRing({
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={offset}
+          className="transition-all duration-700 ease-out"
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-semibold tabular-nums tracking-tight text-foreground">
+        <span className="text-xl font-bold tabular-nums tracking-tight text-foreground">
           {score}
         </span>
         {label && (
-          <span className="text-[10px] text-muted uppercase tracking-wider font-medium">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">
             {label}
           </span>
         )}
@@ -231,37 +447,21 @@ export function ScoreRing({
   );
 }
 
-export function ProgressBar({ value, className }: { value: number; className?: string }) {
-  return (
-    <div className={cn("h-1.5 w-full rounded-full bg-muted-bg overflow-hidden", className)}>
-      <div
-        className="h-full rounded-full bg-primary transition-all duration-500"
-        style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
-      />
-    </div>
-  );
-}
+/* ─────────────────────────────────────────────
+   LAYOUT / EMPTY / SKELETON / SEPARATOR
+───────────────────────────────────────────── */
 
-export function Alert({
+export function PageShell({
   children,
-  tone = "info",
   className,
 }: {
-  children: React.ReactNode;
-  tone?: "info" | "warning" | "success" | "danger";
+  children: ReactNode;
   className?: string;
 }) {
-  const tones = {
-    info: "bg-primary-soft border-orange-200 text-[color:var(--brand-hover)]",
-    warning: "bg-amber-50 border-amber-300 text-amber-950",
-    success: "bg-emerald-50 border-emerald-300 text-emerald-950",
-    danger: "bg-red-50 border-red-300 text-red-950",
-  };
   return (
     <div
       className={cn(
-        "rounded-xl border px-4 py-3 text-sm leading-relaxed",
-        tones[tone],
+        "mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8",
         className
       )}
     >
@@ -270,4 +470,104 @@ export function Alert({
   );
 }
 
-export { buttonVariants };
+export function PageHeader({
+  title,
+  description,
+  action,
+  className,
+}: {
+  title: ReactNode;
+  description?: ReactNode;
+  action?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
+        className
+      )}
+    >
+      <div className="min-w-0">
+        <h1 className="font-display text-3xl tracking-tight text-foreground sm:text-[2rem]">
+          {title}
+        </h1>
+        {description && (
+          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted sm:text-[15px]">
+            {description}
+          </p>
+        )}
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
+    </div>
+  );
+}
+
+export function EmptyState({
+  title,
+  description,
+  action,
+  icon,
+}: {
+  title: string;
+  description: string;
+  action?: ReactNode;
+  icon?: ReactNode;
+}) {
+  return (
+    <Card
+      variant="outline"
+      padding="lg"
+      className="border-dashed text-center py-14 sm:py-16"
+    >
+      <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary shadow-inner">
+        {icon ?? <span className="text-xl font-bold opacity-60">∅</span>}
+      </div>
+      <h3 className="font-display text-2xl text-foreground">{title}</h3>
+      <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-muted">
+        {description}
+      </p>
+      {action && <div className="mt-7 flex justify-center">{action}</div>}
+    </Card>
+  );
+}
+
+export function Separator({ className }: { className?: string }) {
+  return <div className={cn("h-px w-full bg-card-border", className)} />;
+}
+
+export function Skeleton({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "animate-pulse rounded-xl bg-gradient-to-r from-muted-bg via-neutral-200/60 to-muted-bg bg-[length:200%_100%]",
+        className
+      )}
+    />
+  );
+}
+
+export function StatCard({
+  label,
+  value,
+  hint,
+  className,
+}: {
+  label: string;
+  value: ReactNode;
+  hint?: string;
+  className?: string;
+}) {
+  return (
+    <Card className={cn("relative overflow-hidden", className)}>
+      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-primary/[0.06]" />
+      <p className="text-[13px] font-medium text-muted">{label}</p>
+      <p className="mt-2 font-display text-3xl tracking-tight text-foreground tabular-nums">
+        {value}
+      </p>
+      {hint && <p className="mt-1 text-xs text-muted">{hint}</p>}
+    </Card>
+  );
+}
+
+export { buttonVariants, cardVariants };

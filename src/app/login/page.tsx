@@ -53,16 +53,18 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center px-4 py-12">
+    <div className="flex min-h-full flex-col items-center justify-center bg-[#faf9f7] px-4 py-12">
       <div className="mb-8">
         <Logo href="/" size="md" priority />
       </div>
 
-      <Card className="w-full max-w-md">
-        <h1 className="font-display text-2xl text-foreground">Entrar</h1>
-        <p className="mt-1 text-sm text-muted">Acesse seu dashboard e suas análises.</p>
+      <Card variant="elevated" padding="lg" className="w-full max-w-md">
+        <h1 className="font-display text-2xl tracking-tight text-foreground">Entrar</h1>
+        <p className="mt-1.5 text-sm text-muted leading-relaxed">
+          Acesse seu dashboard e suas análises.
+        </p>
 
-        <form onSubmit={onSubmit} className="mt-6 space-y-4">
+        <form onSubmit={onSubmit} className="mt-7 space-y-4">
           <div>
             <Label htmlFor="email">E-mail</Label>
             <Input
@@ -89,20 +91,30 @@ function LoginForm() {
             />
           </div>
 
-          {error && <Alert tone="danger">{error}</Alert>}
+          {error && (
+            <Alert tone="danger" title="Não foi possível entrar">
+              {error}
+            </Alert>
+          )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" loading={loading}>
             {loading ? "Entrando…" : "Entrar"}
           </Button>
         </form>
 
-        <div className="mt-4 flex flex-col gap-2 text-center text-sm text-muted">
-          <Link href="/recuperar-senha" className="text-primary hover:underline">
+        <div className="mt-6 flex flex-col gap-2.5 text-center text-sm text-muted">
+          <Link
+            href="/recuperar-senha"
+            className="font-medium text-primary hover:underline underline-offset-2"
+          >
             Esqueci minha senha
           </Link>
           <p>
             Ainda não tem conta?{" "}
-            <Link href="/cadastro" className="font-medium text-primary hover:underline">
+            <Link
+              href="/cadastro"
+              className="font-semibold text-primary hover:underline underline-offset-2"
+            >
               Criar conta
             </Link>
           </p>

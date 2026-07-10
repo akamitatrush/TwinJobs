@@ -65,18 +65,20 @@ export default function CadastroPage() {
   }
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center px-4 py-12">
+    <div className="flex min-h-full flex-col items-center justify-center bg-[#faf9f7] px-4 py-12">
       <div className="mb-8">
         <Logo href="/" size="md" priority />
       </div>
 
-      <Card className="w-full max-w-md">
-        <h1 className="font-display text-2xl text-foreground">Criar conta</h1>
-        <p className="mt-1 text-sm text-muted">
+      <Card variant="elevated" padding="lg" className="w-full max-w-md">
+        <h1 className="font-display text-2xl tracking-tight text-foreground">
+          Criar conta
+        </h1>
+        <p className="mt-1.5 text-sm text-muted leading-relaxed">
           Comece sua primeira análise de posicionamento profissional.
         </p>
 
-        <form onSubmit={onSubmit} className="mt-6 space-y-4">
+        <form onSubmit={onSubmit} className="mt-7 space-y-4">
           <div>
             <Label htmlFor="name">Nome completo</Label>
             <Input
@@ -114,17 +116,24 @@ export default function CadastroPage() {
             />
           </div>
 
-          {error && <Alert tone="danger">{error}</Alert>}
+          {error && (
+            <Alert tone="danger" title="Não foi possível criar a conta">
+              {error}
+            </Alert>
+          )}
           {info && <Alert tone="success">{info}</Alert>}
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" loading={loading}>
             {loading ? "Criando…" : "Criar conta"}
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-sm text-muted">
+        <p className="mt-6 text-center text-sm text-muted">
           Já tem conta?{" "}
-          <Link href="/login" className="font-medium text-primary hover:underline">
+          <Link
+            href="/login"
+            className="font-semibold text-primary hover:underline underline-offset-2"
+          >
             Entrar
           </Link>
         </p>
