@@ -14,14 +14,17 @@ const buttonVariants = cva(
         primary:
           "bg-primary text-white shadow-sm hover:bg-primary-hover hover:shadow-md",
         secondary:
-          "bg-primary-soft text-primary-hover hover:bg-[#b5f0e4]",
+          "bg-primary-soft text-teal-900 hover:bg-teal-100",
         ghost: "bg-transparent text-foreground hover:bg-muted-bg",
         outline:
-          "border border-card-border bg-card text-foreground hover:bg-muted-bg hover:border-zinc-300",
+          "border-2 border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 hover:border-zinc-400",
         danger: "bg-danger text-white hover:bg-red-700",
-        dark: "bg-ink text-white hover:bg-zinc-800 shadow-sm",
+        dark: "bg-zinc-900 text-white hover:bg-zinc-800 shadow-sm",
         white:
-          "bg-white text-ink hover:bg-zinc-100 shadow-sm",
+          "bg-white text-zinc-900 hover:bg-zinc-100 shadow-sm font-semibold",
+        /** Botão claro sobre fundo escuro (hero) */
+        "on-dark":
+          "border-2 border-white/80 bg-transparent text-white hover:bg-white hover:text-zinc-900",
       },
       size: {
         sm: "h-9 px-3.5 text-sm rounded-lg",
@@ -85,7 +88,7 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
     <label
-      className={cn("block text-sm font-medium text-zinc-700 mb-1.5", className)}
+      className={cn("block text-sm font-semibold text-zinc-800 mb-1.5", className)}
       {...props}
     />
   );
@@ -114,12 +117,12 @@ export function Badge({
   tone?: "neutral" | "primary" | "accent" | "success" | "warning" | "danger";
 }) {
   const tones = {
-    neutral: "bg-muted-bg text-muted border border-card-border",
-    primary: "bg-primary-soft text-primary-hover border border-teal-200/60",
-    accent: "bg-accent-soft text-indigo-700 border border-indigo-200/60",
-    success: "bg-emerald-50 text-success border border-emerald-200/60",
-    warning: "bg-amber-50 text-warning border border-amber-200/60",
-    danger: "bg-red-50 text-danger border border-red-200/60",
+    neutral: "bg-zinc-100 text-zinc-800 border border-zinc-300",
+    primary: "bg-teal-100 text-teal-900 border border-teal-300",
+    accent: "bg-indigo-100 text-indigo-900 border border-indigo-300",
+    success: "bg-emerald-100 text-emerald-900 border border-emerald-300",
+    warning: "bg-amber-100 text-amber-950 border border-amber-300",
+    danger: "bg-red-100 text-red-900 border border-red-300",
   };
   return (
     <span
@@ -251,10 +254,10 @@ export function Alert({
   className?: string;
 }) {
   const tones = {
-    info: "bg-primary-soft/80 border-teal-200/80 text-primary-hover",
-    warning: "bg-amber-50 border-amber-200 text-amber-900",
-    success: "bg-emerald-50 border-emerald-200 text-emerald-900",
-    danger: "bg-red-50 border-red-200 text-red-900",
+    info: "bg-teal-50 border-teal-300 text-teal-950",
+    warning: "bg-amber-50 border-amber-300 text-amber-950",
+    success: "bg-emerald-50 border-emerald-300 text-emerald-950",
+    danger: "bg-red-50 border-red-300 text-red-950",
   };
   return (
     <div

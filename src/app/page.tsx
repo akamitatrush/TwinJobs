@@ -28,23 +28,23 @@ export default function LandingPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-teal-200 backdrop-blur">
+              <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-teal-400/40 bg-teal-500/20 px-3 py-1.5 text-xs font-semibold text-teal-100 backdrop-blur">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal-400" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-300 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal-300" />
                 </span>
                 Mentor de carreira com IA · sem promessas falsas
               </div>
 
               <h1 className="animate-fade-up-delay-1 mt-6 font-display text-[2.6rem] leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
                 Seu currículo e LinkedIn,{" "}
-                <em className="text-teal-300 not-italic sm:italic">
+                <em className="text-teal-200 not-italic sm:italic">
                   com a clareza que o mercado entende
                 </em>
                 .
               </h1>
 
-              <p className="animate-fade-up-delay-2 mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="animate-fade-up-delay-2 mt-6 max-w-xl text-base leading-relaxed text-zinc-200 sm:text-lg">
                 TwinJobs analisa sua trajetória real, mede aderência a cargos e vagas e
                 monta um plano de evolução — sem inventar experiência e sem vender
                 contratação.
@@ -52,27 +52,23 @@ export default function LandingPage() {
 
               <div className="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-3">
                 <Link href="/cadastro">
-                  <Button size="lg" className="shadow-lg shadow-teal-900/30">
+                  <Button size="lg" className="shadow-lg shadow-black/40">
                     Começar análise
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
                 <a href="#como-funciona">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white/15 bg-white/5 text-white hover:bg-white/10 hover:border-white/25"
-                  >
+                  <Button size="lg" variant="on-dark">
                     Ver como funciona
                   </Button>
                 </a>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500">
+              <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-zinc-200">
                 {["Honestidade total", "Dados só seus (RLS)", "Plano acionável"].map(
                   (t) => (
                     <span key={t} className="inline-flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-teal-500" />
+                      <CheckCircle2 className="h-4 w-4 text-teal-300" />
                       {t}
                     </span>
                   )
@@ -91,23 +87,23 @@ export default function LandingPage() {
                       <div className="h-2 w-2 rounded-full bg-amber-400/80" />
                       <div className="h-2 w-2 rounded-full bg-emerald-400/80" />
                     </div>
-                    <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-300">
                       Análise · resultado
                     </span>
                   </div>
 
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs font-medium text-zinc-500">Score de aderência</p>
+                      <p className="text-xs font-semibold text-zinc-300">Score de aderência</p>
                       <p className="mt-1 font-display text-4xl text-white">72</p>
-                      <Badge tone="primary" className="mt-2">
+                      <span className="mt-2 inline-flex rounded-full bg-teal-400 px-2.5 py-0.5 text-xs font-bold text-teal-950">
                         Boa aderência
-                      </Badge>
+                      </span>
                     </div>
-                    <div className="h-20 w-20 rounded-full border-[6px] border-zinc-800 border-t-teal-400 border-r-teal-400/40" />
+                    <div className="h-20 w-20 rounded-full border-[6px] border-zinc-700 border-t-teal-300 border-r-teal-400/60" />
                   </div>
 
-                  <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-zinc-800">
+                  <div className="mt-6 h-2 overflow-hidden rounded-full bg-zinc-800">
                     <div className="h-full w-[72%] rounded-full bg-gradient-to-r from-teal-500 to-teal-300" />
                   </div>
 
@@ -120,10 +116,10 @@ export default function LandingPage() {
                     ].map((item) => (
                       <div
                         key={item.k}
-                        className="rounded-2xl border border-white/5 bg-white/[0.03] p-3"
+                        className="rounded-2xl border border-white/10 bg-zinc-900 p-3"
                       >
-                        <p className="text-[11px] font-medium text-zinc-500">{item.k}</p>
-                        <p className="mt-1 text-sm font-medium text-zinc-200 leading-snug">
+                        <p className="text-[11px] font-semibold text-zinc-400">{item.k}</p>
+                        <p className="mt-1 text-sm font-semibold text-white leading-snug">
                           {item.v}
                         </p>
                       </div>
@@ -134,10 +130,10 @@ export default function LandingPage() {
                     {["Visão geral", "Recomendações", "Aderência", "Plano"].map((tab, i) => (
                       <span
                         key={tab}
-                        className={`shrink-0 rounded-lg px-2.5 py-1 text-[11px] font-medium ${
+                        className={`shrink-0 rounded-lg px-2.5 py-1 text-[11px] font-semibold ${
                           i === 0
-                            ? "bg-teal-500/15 text-teal-300 ring-1 ring-teal-500/30"
-                            : "text-zinc-500"
+                            ? "bg-teal-400 text-teal-950"
+                            : "text-zinc-300"
                         }`}
                       >
                         {tab}
@@ -218,7 +214,7 @@ export default function LandingPage() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary transition group-hover:bg-primary group-hover:text-white">
                     <step.icon className="h-5 w-5" />
                   </span>
-                  <span className="font-display text-3xl text-zinc-200">{step.n}</span>
+                  <span className="font-display text-3xl font-semibold text-zinc-400">{step.n}</span>
                 </div>
                 <h3 className="mt-5 text-base font-semibold tracking-tight">{step.t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{step.d}</p>
@@ -313,7 +309,7 @@ export default function LandingPage() {
                 <h2 className="mt-6 font-display text-3xl sm:text-4xl">
                   Compromisso de honestidade
                 </h2>
-                <p className="mt-4 max-w-lg text-zinc-400 leading-relaxed">
+                <p className="mt-4 max-w-lg text-zinc-200 leading-relaxed">
                   TwinJobs não promete contratação e não inventa experiências. A proposta é
                   ajudar você a comunicar melhor sua trajetória e decidir com estratégia.
                 </p>
@@ -324,15 +320,15 @@ export default function LandingPage() {
                     "Lacuna real ≠ comunicação",
                     "Seus dados ficam só com você",
                   ].map((t) => (
-                    <li key={t} className="flex items-center gap-2 text-sm text-zinc-300">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-teal-400" />
+                    <li key={t} className="flex items-center gap-2 text-sm font-medium text-zinc-100">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-teal-300" />
                       {t}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="relative border-t border-white/5 bg-gradient-to-br from-teal-500/10 to-indigo-500/10 p-8 sm:p-12 lg:border-l lg:border-t-0">
-                <p className="text-sm font-medium text-teal-300">Para quem é</p>
+              <div className="relative border-t border-white/10 bg-zinc-900 p-8 sm:p-12 lg:border-l lg:border-t-0">
+                <p className="text-sm font-bold text-teal-300">Para quem é</p>
                 <ul className="mt-6 space-y-5">
                   {[
                     {
@@ -350,7 +346,7 @@ export default function LandingPage() {
                   ].map((item) => (
                     <li key={item.t}>
                       <p className="font-semibold text-white">{item.t}</p>
-                      <p className="mt-1 text-sm text-zinc-400">{item.d}</p>
+                      <p className="mt-1 text-sm text-zinc-300 leading-relaxed">{item.d}</p>
                     </li>
                   ))}
                 </ul>
@@ -370,7 +366,7 @@ export default function LandingPage() {
               <h2 className="font-display text-3xl text-white sm:text-4xl">
                 Pronto para clarear seu caminho?
               </h2>
-              <p className="mx-auto mt-3 max-w-lg text-teal-100/90">
+              <p className="mx-auto mt-3 max-w-lg text-base font-medium text-white">
                 Crie sua conta e gere a primeira análise com os materiais que você já tem.
               </p>
               <div className="mt-8">

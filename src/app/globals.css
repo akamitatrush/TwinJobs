@@ -8,30 +8,30 @@
 */
 
 :root {
-  --background: #fafafa;
+  --background: #f4f4f5;
   --foreground: #09090b;
   --card: #ffffff;
-  --card-border: #e4e4e7;
-  --muted: #71717a;
-  --muted-bg: #f4f4f5;
-  --primary: #0d9488;
-  --primary-hover: #0f766e;
+  --card-border: #d4d4d8;
+  --muted: #3f3f46; /* zinc-700 — legível em fundo claro (antes #71717a era fraco) */
+  --muted-bg: #e4e4e7;
+  --primary: #0f766e; /* teal-700 — mais contraste em botões e links */
+  --primary-hover: #115e59;
   --primary-soft: #ccfbf1;
-  --accent: #6366f1;
+  --accent: #4f46e5;
   --accent-soft: #e0e7ff;
-  --success: #059669;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --ring: #0d9488;
-  --shadow: 0 0 0 1px rgb(0 0 0 / 3%), 0 1px 2px rgb(0 0 0 / 4%), 0 8px 24px rgb(0 0 0 / 4%);
-  --shadow-lg: 0 0 0 1px rgb(0 0 0 / 4%), 0 12px 40px rgb(0 0 0 / 8%);
+  --success: #047857;
+  --warning: #b45309;
+  --danger: #b91c1c;
+  --ring: #0f766e;
+  --shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%);
+  --shadow-lg: 0 0 0 1px rgb(0 0 0 / 5%), 0 12px 40px rgb(0 0 0 / 10%);
   --radius: 0.75rem;
 
   /* Marketing / dark surfaces */
   --ink: #09090b;
   --ink-elevated: #18181b;
-  --ink-border: #27272a;
-  --ink-muted: #a1a1aa;
+  --ink-border: #3f3f46;
+  --ink-muted: #d4d4d8; /* zinc-300 — legível em fundo escuro */
 }
 
 @theme inline {
@@ -93,7 +93,7 @@ h3,
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.035;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   z-index: 1;
 }

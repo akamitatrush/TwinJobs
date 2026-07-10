@@ -132,7 +132,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
 
 export function MarketingHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="absolute inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/70 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo href="/" light />
         <div className="flex items-center gap-2">
@@ -140,13 +140,13 @@ export function MarketingHeader() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/80 hover:text-white hover:bg-white/10"
+              className="text-white hover:text-white hover:bg-white/15 font-semibold"
             >
               Entrar
             </Button>
           </Link>
           <Link href="/cadastro">
-            <Button size="sm" variant="white">
+            <Button size="sm" variant="white" className="shadow-md">
               Começar grátis
             </Button>
           </Link>
