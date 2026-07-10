@@ -35,11 +35,11 @@ export function AppHeader({ fullName }: { fullName?: string }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-card-border/80 bg-white/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-card-border/90 bg-white/95 backdrop-blur-xl">
       <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo href="/dashboard" size="sm" priority />
 
-        <nav className="hidden md:flex items-center gap-0.5 rounded-full bg-muted-bg/80 p-1 ring-1 ring-card-border/60">
+        <nav className="hidden md:flex items-center gap-0.5 rounded-full bg-muted-bg p-1 ring-1 ring-card-border">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -47,7 +47,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
               className={cn(
                 "rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-all",
                 pathname.startsWith(item.href)
-                  ? "bg-white text-foreground shadow-sm ring-1 ring-card-border/80"
+                  ? "bg-white text-foreground shadow-sm ring-1 ring-card-border"
                   : "text-muted hover:text-foreground"
               )}
             >
@@ -87,7 +87,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
               className={cn(
                 "block rounded-xl px-3 py-2.5 text-sm font-medium",
                 pathname.startsWith(item.href)
-                  ? "bg-primary-soft text-orange-950"
+                  ? "bg-primary-soft text-[color:var(--brand-hover)]"
                   : "text-foreground hover:bg-muted-bg"
               )}
             >
@@ -106,25 +106,20 @@ export function AppHeader({ fullName }: { fullName?: string }) {
   );
 }
 
+/** Header marketing em fundo claro (combina com o logo laranja) */
 export function MarketingHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/75 backdrop-blur-md">
+    <header className="absolute inset-x-0 top-0 z-50 border-b border-card-border/60 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo href="/" size="sm" onDark priority />
+        <Logo href="/" size="sm" priority />
         <div className="flex items-center gap-2">
           <Link href="/login">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-white hover:text-white hover:bg-white/15 font-semibold"
-            >
+            <Button variant="ghost" size="sm" className="font-semibold">
               Entrar
             </Button>
           </Link>
           <Link href="/cadastro">
-            <Button size="sm" variant="white" className="shadow-md">
-              Começar grátis
-            </Button>
+            <Button size="sm">Começar grátis</Button>
           </Link>
         </div>
       </div>

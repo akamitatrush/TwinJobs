@@ -1,38 +1,44 @@
 @import "tailwindcss";
 
 /*
-  CareerTwin Design System
-  — Superfície: zinc limpo (produto SaaS moderno)
-  — Acento: teal elétrico (confiança + ação)
-  — Tipografia: sans geométrica + display com personalidade
+  CareerTwin Design System (brand-first)
+  Extraído do logo oficial:
+  — Marca: #FF5922 (laranja)
+  — Texto: #111 / #1a1a1a
+  — Superfície: branco + neutros quentes (stone)
+  — Sem teal/indigo competindo com a marca
 */
 
 :root {
-  --background: #f4f4f5;
-  --foreground: #09090b;
-  --card: #ffffff;
-  --card-border: #d4d4d8;
-  --muted: #3f3f46; /* zinc-700 — legível em fundo claro (antes #71717a era fraco) */
-  --muted-bg: #e4e4e7;
-  /* Laranja da marca CareerTwin (alinhado ao logo) */
-  --primary: #f04e23;
-  --primary-hover: #d43f18;
-  --primary-soft: #ffe8e0;
-  --accent: #4f46e5;
-  --accent-soft: #e0e7ff;
-  --success: #047857;
-  --warning: #b45309;
-  --danger: #b91c1c;
-  --ring: #f04e23;
-  --shadow: 0 0 0 1px rgb(0 0 0 / 4%), 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%);
-  --shadow-lg: 0 0 0 1px rgb(0 0 0 / 5%), 0 12px 40px rgb(0 0 0 / 10%);
-  --radius: 0.75rem;
+  --brand: #ff5922;
+  --brand-hover: #e84a16;
+  --brand-soft: #fff0eb;
+  --brand-muted: #ffd4c4;
 
-  /* Marketing / dark surfaces */
-  --ink: #09090b;
-  --ink-elevated: #18181b;
-  --ink-border: #3f3f46;
-  --ink-muted: #d4d4d8; /* zinc-300 — legível em fundo escuro */
+  --background: #faf9f7;
+  --foreground: #141414;
+  --card: #ffffff;
+  --card-border: #e8e4df;
+  --muted: #525252;
+  --muted-bg: #f3f1ee;
+  --primary: var(--brand);
+  --primary-hover: var(--brand-hover);
+  --primary-soft: var(--brand-soft);
+  --accent: #1a1a1a;
+  --accent-soft: #f0eeeb;
+  --success: #15803d;
+  --warning: #b45309;
+  --danger: #dc2626;
+  --ring: var(--brand);
+  --shadow: 0 0 0 1px rgb(20 20 20 / 4%), 0 1px 2px rgb(20 20 20 / 4%),
+    0 8px 24px rgb(20 20 20 / 5%);
+  --shadow-lg: 0 0 0 1px rgb(20 20 20 / 5%), 0 16px 48px rgb(20 20 20 / 8%);
+  --radius: 0.875rem;
+
+  --ink: #141414;
+  --ink-elevated: #1f1f1f;
+  --ink-border: #333;
+  --ink-muted: #d4d4d4;
 }
 
 @theme inline {
@@ -45,6 +51,9 @@
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-soft: var(--primary-soft);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-muted: var(--brand-muted);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-success: var(--success);
@@ -85,24 +94,14 @@ h3,
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--primary) 28%, transparent);
-}
-
-/* Grain overlay for marketing surfaces */
-.grain::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 1;
+  background: color-mix(in oklab, var(--brand) 32%, transparent);
+  color: var(--foreground);
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -111,17 +110,16 @@ h3,
 }
 
 .animate-fade-up {
-  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-
 .animate-fade-up-delay-1 {
-  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.07s both;
 }
 .animate-fade-up-delay-2 {
-  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
 }
 .animate-fade-up-delay-3 {
-  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.21s both;
 }
 
 @keyframes pulse-soft {
@@ -133,7 +131,6 @@ h3,
     opacity: 0.55;
   }
 }
-
 .animate-pulse-soft {
   animation: pulse-soft 1.6s ease-in-out infinite;
 }
@@ -144,24 +141,23 @@ h3,
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
   }
 }
-
 .animate-float {
-  animation: float 5s ease-in-out infinite;
+  animation: float 5.5s ease-in-out infinite;
 }
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--brand);
   outline-offset: 2px;
 }
 
-/* Bento / mesh helpers */
-.mesh-hero {
+/* Hero claro alinhado ao logo (laranja + branco + preto) */
+.hero-brand {
   background:
-    radial-gradient(ellipse 90% 70% at 15% -20%, rgb(13 148 136 / 35%), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 10%, rgb(99 102 241 / 28%), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, rgb(13 148 136 / 12%), transparent 60%),
-    #09090b;
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgb(255 89 34 / 14%), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 100% 20%, rgb(255 89 34 / 8%), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgb(255 89 34 / 6%), transparent 55%),
+    #faf9f7;
 }

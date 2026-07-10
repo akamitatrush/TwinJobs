@@ -7,10 +7,7 @@ type LogoProps = {
   /** sm: header | md: auth | lg: footer | xl: landing destaque */
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
-  /**
-   * Em fundo escuro, coloca o logo sobre um “pill” branco
-   * (o original é laranja/preto em fundo branco).
-   */
+  /** Pill branco atrás do logo (só se fundo for escuro) */
   onDark?: boolean;
   priority?: boolean;
 };
