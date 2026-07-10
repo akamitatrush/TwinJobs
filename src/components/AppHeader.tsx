@@ -106,12 +106,12 @@ export function AppHeader({ fullName }: { fullName?: string }) {
   );
 }
 
-/** Header marketing em fundo claro (combina com o logo laranja) */
+/** Header marketing em fundo claro (logo um pouco maior no topo) */
 export function MarketingHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50 border-b border-card-border/60 bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo href="/" size="sm" priority />
+    <header className="sticky top-0 z-50 border-b border-card-border/80 bg-white/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6 lg:px-8">
+        <Logo href="/" size="md" priority />
         <div className="flex items-center gap-2">
           <Link href="/login">
             <Button variant="ghost" size="sm" className="font-semibold">

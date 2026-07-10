@@ -1,393 +1,282 @@
 import Link from "next/link";
 import { MarketingHeader } from "@/components/AppHeader";
 import { Logo } from "@/components/Logo";
-import { Badge, Button, Card } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 import {
   ArrowRight,
   CheckCircle2,
   FileText,
+  GitCompare,
+  Lock,
   MessageSquareQuote,
   ShieldCheck,
   Sparkles,
   Target,
-  Layers,
-  GitCompare,
-  Lock,
 } from "lucide-react";
+
+const steps = [
+  {
+    n: "1",
+    title: "Envie currículo e LinkedIn",
+    text: "Cole o texto dos seus materiais. Usamos o que você realmente fez — sem inventar.",
+  },
+  {
+    n: "2",
+    title: "Informe o cargo-alvo",
+    text: "Área, senioridade e, se quiser, uma vaga específica. Ou peça sugestões de cargo.",
+  },
+  {
+    n: "3",
+    title: "Receba o diagnóstico",
+    text: "Recomendações, aderência, tradução da experiência e plano de evolução.",
+  },
+  {
+    n: "4",
+    title: "Ajuste e evolua",
+    text: "Marque ações feitas e faça reanálises para comparar seu progresso.",
+  },
+];
+
+const benefits = [
+  {
+    icon: FileText,
+    title: "Recomendações priorizadas",
+    text: "O que mudar no currículo e no LinkedIn, por impacto e esforço — com ação clara.",
+  },
+  {
+    icon: Target,
+    title: "Aderência a cargos e vagas",
+    text: "Score de 0 a 100 e leitura honesta: lacuna real, de comunicação ou de evidência.",
+  },
+  {
+    icon: MessageSquareQuote,
+    title: "Tradução para o mercado",
+    text: "Reescreva experiências reais em linguagem competitiva, com alerta de autenticidade.",
+  },
+  {
+    icon: GitCompare,
+    title: "Plano + reanálise",
+    text: "Checklist prático e comparativo de evolução depois de atualizar seus materiais.",
+  },
+];
 
 export default function LandingPage() {
   return (
     <div className="flex min-h-full flex-col bg-background">
-      {/* ─── HERO (claro = combina com o logo) ─── */}
-      <section className="relative hero-brand overflow-hidden pb-20 pt-28 sm:pt-32 sm:pb-28">
-        <MarketingHeader />
+      <MarketingHeader />
 
-        <div className="pointer-events-none absolute -right-20 top-32 h-72 w-72 rounded-full bg-[color:var(--brand)]/10 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-10 h-64 w-64 rounded-full bg-[color:var(--brand)]/8 blur-3xl" />
-
-        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <div>
-              <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-orange-200 bg-primary-soft px-3 py-1.5 text-xs font-semibold text-[color:var(--brand-hover)]">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-50" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-                </span>
-                Mentor de carreira com IA · sem promessas falsas
-              </div>
-
-              <h1 className="animate-fade-up-delay-1 mt-6 font-display text-[2.55rem] leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem]">
-                Evolua, reposicione e{" "}
-                <em className="not-italic text-primary sm:italic">conquiste</em> — com
-                clareza de mercado.
-              </h1>
-
-              <p className="animate-fade-up-delay-2 mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                CareerTwin analisa sua trajetória real, mede aderência a cargos e vagas e
-                monta um plano de evolução — sem inventar experiência e sem vender
-                contratação.
-              </p>
-
-              <div className="animate-fade-up-delay-3 mt-8 flex flex-wrap items-center gap-3">
-                <Link href="/cadastro">
-                  <Button size="lg" className="shadow-md shadow-orange-900/10">
-                    Começar análise
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-                <a href="#como-funciona">
-                  <Button size="lg" variant="outline">
-                    Ver como funciona
-                  </Button>
-                </a>
-              </div>
-
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-foreground">
-                {["Honestidade total", "Dados só seus", "Plano acionável"].map((t) => (
-                  <span key={t} className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-primary" />
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Preview + logo mark */}
-            <div className="animate-fade-up-delay-2 relative">
-              <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-orange-200/40 via-transparent to-orange-100/30 blur-xl" />
-              <div className="animate-float relative space-y-4">
-                <Card className="overflow-hidden border-orange-100 p-0 shadow-[var(--shadow-lg)]">
-                  <div className="flex items-center justify-between border-b border-card-border bg-white px-5 py-3">
-                    <Logo href={null} size="sm" />
-                    <Badge tone="primary">Demo de resultado</Badge>
-                  </div>
-                  <div className="bg-white p-5 sm:p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs font-semibold text-muted">Score de aderência</p>
-                        <p className="mt-1 font-display text-4xl text-foreground">72</p>
-                        <span className="mt-2 inline-flex rounded-full bg-primary px-2.5 py-0.5 text-xs font-bold text-white">
-                          Boa aderência
-                        </span>
-                      </div>
-                      <div className="h-20 w-20 rounded-full border-[6px] border-muted-bg border-t-primary border-r-primary/50" />
-                    </div>
-
-                    <div className="mt-6 h-2 overflow-hidden rounded-full bg-muted-bg">
-                      <div className="h-full w-[72%] rounded-full bg-primary" />
-                    </div>
-
-                    <div className="mt-6 grid grid-cols-2 gap-3">
-                      {[
-                        { k: "Ponto forte", v: "Experiência em TI sênior" },
-                        { k: "Lacuna", v: "Evidências de impacto" },
-                        { k: "Próxima ação", v: "Título no LinkedIn" },
-                        { k: "Confiança", v: "Alta · materiais ok" },
-                      ].map((item) => (
-                        <div
-                          key={item.k}
-                          className="rounded-2xl border border-card-border bg-muted-bg/50 p-3"
-                        >
-                          <p className="text-[11px] font-semibold text-muted">{item.k}</p>
-                          <p className="mt-1 text-sm font-semibold text-foreground leading-snug">
-                            {item.v}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {["Visão geral", "Recomendações", "Aderência", "Plano"].map(
-                        (tab, i) => (
-                          <span
-                            key={tab}
-                            className={`rounded-lg px-2.5 py-1 text-[11px] font-semibold ${
-                              i === 0
-                                ? "bg-primary text-white"
-                                : "bg-muted-bg text-muted"
-                            }`}
-                          >
-                            {tab}
-                          </span>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </div>
+      {/* ═══════════ HERO — marca em destaque ═══════════ */}
+      <section className="relative hero-brand overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[color:var(--brand)]/[0.07] blur-3xl" />
         </div>
-      </section>
 
-      {/* strip */}
-      <section className="border-y border-card-border bg-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
-          <p className="text-sm font-medium text-muted">
-            Evolua, Reposicione e Conquiste — com a linguagem do mercado.
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-10 text-center sm:px-6 sm:pb-20 sm:pt-14">
+          {/* Logo grande — estrela da landing */}
+          <div className="animate-fade-up">
+            <Logo href={null} size="hero" centered priority />
+          </div>
+
+          <p className="animate-fade-up-delay-1 mt-8 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+            Mentor de carreira com IA
           </p>
-          <div className="flex flex-wrap gap-2">
-            {["Currículo", "LinkedIn", "Cargo-alvo", "Vaga", "Plano"].map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-card-border bg-muted-bg px-3 py-1 text-xs font-semibold text-foreground"
-              >
-                {t}
-              </span>
-            ))}
+
+          <h1 className="animate-fade-up-delay-1 mt-4 font-display text-[2.15rem] leading-[1.15] tracking-tight text-foreground sm:text-4xl md:text-[2.75rem]">
+            Transforme sua experiência real em uma narrativa{" "}
+            <span className="text-primary">clara e competitiva</span>.
+          </h1>
+
+          <p className="animate-fade-up-delay-2 mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            Analise currículo, LinkedIn e vagas de interesse. Receba recomendações,
+            diagnóstico de aderência e um plano de evolução —{" "}
+            <strong className="font-semibold text-foreground">
+              sem prometer contratação e sem inventar experiências
+            </strong>
+            .
+          </p>
+
+          <div className="animate-fade-up-delay-3 mt-9 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
+            <Link href="/cadastro" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full shadow-md shadow-orange-900/10 sm:min-w-[200px]">
+                Começar análise
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <a href="#como-funciona" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:min-w-[200px]">
+                Como funciona
+              </Button>
+            </a>
           </div>
+
+          <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-foreground">
+            {[
+              "Baseado no que você já fez",
+              "Dados só seus",
+              "Plano acionável",
+            ].map((item) => (
+              <li key={item} className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* como funciona */}
-      <section id="como-funciona" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+      {/* ═══════════ COMO FUNCIONA ═══════════ */}
+      <section
+        id="como-funciona"
+        className="border-t border-card-border bg-white py-16 sm:py-20"
+      >
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-bold text-primary">Como funciona</p>
-            <h2 className="mt-2 font-display text-3xl text-foreground sm:text-4xl">
-              Quatro passos. Zero enrolação.
+            <h2 className="mt-2 font-display text-3xl text-foreground sm:text-[2.15rem]">
+              Do material ao plano, em quatro passos
             </h2>
             <p className="mt-3 text-muted leading-relaxed">
-              Do material que você já tem até um plano que dá para executar na semana.
+              Fluxo guiado, linguagem simples e resultado que você consegue executar.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                n: "01",
-                icon: FileText,
-                t: "Envie seus materiais",
-                d: "Currículo e LinkedIn em texto. PDF fica guardado; o texto alimenta a análise.",
-              },
-              {
-                n: "02",
-                icon: Target,
-                t: "Defina o alvo",
-                d: "Cargo, área e senioridade — ou peça sugestões se ainda não souber.",
-              },
-              {
-                n: "03",
-                icon: Sparkles,
-                t: "Receba o diagnóstico",
-                d: "Recomendações, aderência, tradução da experiência e plano.",
-              },
-              {
-                n: "04",
-                icon: GitCompare,
-                t: "Ajuste e reanalise",
-                d: "Marque ações feitas e compare a evolução entre versões.",
-              },
-            ].map((step) => (
-              <div
-                key={step.n}
-                className="group relative overflow-hidden rounded-3xl border border-card-border bg-card p-6 shadow-[var(--shadow)] transition hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-[var(--shadow-lg)]"
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2">
+            {steps.map((step) => (
+              <li key={step.n}>
+                <Card className="h-full border-card-border p-6 transition hover:border-orange-200 hover:shadow-[var(--shadow-lg)]">
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-base font-bold text-white">
+                      {step.n}
+                    </span>
+                    <div className="text-left">
+                      <h3 className="text-base font-semibold text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                        {step.text}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ═══════════ O QUE VOCÊ RECEBE ═══════════ */}
+      <section className="border-t border-card-border bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-bold text-primary">O que você recebe</p>
+            <h2 className="mt-2 font-display text-3xl text-foreground sm:text-[2.15rem]">
+              Clareza para decidir o próximo passo
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+            {benefits.map((b) => (
+              <Card
+                key={b.title}
+                className="flex gap-4 p-6 text-left transition hover:border-orange-200"
               >
-                <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary transition group-hover:bg-primary group-hover:text-white">
-                    <step.icon className="h-5 w-5" />
-                  </span>
-                  <span className="font-display text-3xl text-neutral-300">{step.n}</span>
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <b.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-base font-semibold tracking-tight">{step.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{step.d}</p>
-              </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">{b.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{b.text}</p>
+                </div>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* bento */}
-      <section className="border-y border-card-border bg-white py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <p className="text-sm font-bold text-primary">O que você recebe</p>
-            <h2 className="mt-2 font-display text-3xl text-foreground sm:text-4xl">
-              Um gêmeo profissional que fala a língua do mercado
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-4 md:grid-cols-6">
-            <Card className="md:col-span-4 border-orange-100 bg-gradient-to-br from-white to-primary-soft/60 p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-white">
-                <Layers className="h-5 w-5" />
+      {/* ═══════════ HONESTIDADE ═══════════ */}
+      <section className="border-t border-card-border bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <Card className="overflow-hidden border-orange-100 bg-gradient-to-br from-white to-primary-soft/50 p-8 sm:p-10">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-white">
+                <ShieldCheck className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 font-display text-2xl">Recomendações priorizadas</h3>
-              <p className="mt-2 max-w-lg text-muted leading-relaxed">
-                Impacto, esforço e urgência em cada item — com ação clara e justificativa.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Alto impacto", "Baixo esforço", "Posicionamento", "Evidência"].map(
-                  (t) => (
-                    <Badge key={t} tone="primary">
-                      {t}
-                    </Badge>
-                  )
-                )}
-              </div>
-            </Card>
-
-            <Card className="md:col-span-2 p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
-                <Target className="h-5 w-5" />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">Aderência 0–100</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Score fixo por faixas. Lacuna real, comunicação e evidência separadas.
-              </p>
-            </Card>
-
-            <Card className="md:col-span-2 p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
-                <MessageSquareQuote className="h-5 w-5" />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">Tradução honesta</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Linguagem de mercado com alerta de autenticidade em toda sugestão.
-              </p>
-            </Card>
-
-            <Card className="md:col-span-2 p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-muted-bg text-foreground">
-                <FileText className="h-5 w-5" />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">Plano de evolução</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Ações com prazo, critério de sucesso e progresso visível.
-              </p>
-            </Card>
-
-            <Card className="md:col-span-2 p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-muted-bg text-foreground">
-                <Lock className="h-5 w-5" />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">Privacidade real</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                RLS no banco: só você acessa suas análises e arquivos.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* trust */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-card-border bg-ink text-white shadow-[var(--shadow-lg)]">
-            <div className="grid lg:grid-cols-[1fr_0.9fr]">
-              <div className="p-8 sm:p-12">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 text-primary ring-1 ring-primary/40">
-                  <ShieldCheck className="h-6 w-6" />
-                </div>
-                <h2 className="mt-6 font-display text-3xl sm:text-4xl">
+              <div className="min-w-0 flex-1">
+                <h2 className="font-display text-2xl text-foreground sm:text-3xl">
                   Compromisso de honestidade
                 </h2>
-                <p className="mt-4 max-w-lg text-neutral-300 leading-relaxed">
-                  CareerTwin não promete contratação e não inventa experiências. A proposta
-                  é ajudar você a comunicar melhor sua trajetória e decidir com estratégia.
+                <p className="mt-3 max-w-2xl text-muted leading-relaxed">
+                  O CareerTwin não promete contratação e não inventa experiências. A proposta
+                  é ajudar você a comunicar melhor sua trajetória e tomar decisões mais
+                  estratégicas.
                 </p>
-                <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
                   {[
                     "Não cria métricas falsas",
                     "Não substitui recrutadores",
-                    "Lacuna real ≠ comunicação",
-                    "Seus dados ficam só com você",
+                    "Diferencia lacuna real de comunicação",
+                    "Seus dados ficam só com você (RLS)",
                   ].map((t) => (
                     <li
                       key={t}
-                      className="flex items-center gap-2 text-sm font-medium text-neutral-100"
+                      className="flex items-center gap-2 text-sm font-medium text-foreground"
                     >
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
                       {t}
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="border-t border-white/10 bg-neutral-900 p-8 sm:p-12 lg:border-l lg:border-t-0">
-                <p className="text-sm font-bold text-primary">Para quem é</p>
-                <ul className="mt-6 space-y-5">
-                  {[
-                    {
-                      t: "Recolocação",
-                      d: "Quer clareza no que melhorar primeiro no perfil.",
-                    },
-                    {
-                      t: "Transição de carreira",
-                      d: "Precisa traduzir experiência sem forçar narrativa.",
-                    },
-                    {
-                      t: "Sênior em TI ou outras áreas",
-                      d: "Posicionamento confuso no LinkedIn apesar do histórico forte.",
-                    },
-                  ].map((item) => (
-                    <li key={item.t}>
-                      <p className="font-semibold text-white">{item.t}</p>
-                      <p className="mt-1 text-sm text-neutral-300 leading-relaxed">
-                        {item.d}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-6 inline-flex items-center gap-2 text-sm text-muted">
+                  <Lock className="h-4 w-4 text-primary" />
+                  Privacidade por design — cada usuário só acessa as próprias análises.
+                </p>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="pb-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-[2rem] bg-primary px-8 py-14 text-center sm:px-12">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/15 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-16 -left-10 h-56 w-56 rounded-full bg-black/10 blur-3xl" />
-            <div className="relative">
-              <h2 className="font-display text-3xl text-white sm:text-4xl">
-                Pronto para clarear seu caminho?
-              </h2>
-              <p className="mx-auto mt-3 max-w-lg text-base font-medium text-white/95">
-                Crie sua conta e gere a primeira análise com os materiais que você já tem.
-              </p>
-              <div className="mt-8">
-                <Link href="/cadastro">
-                  <Button size="lg" variant="white">
-                    Criar minha primeira análise
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
+      {/* ═══════════ CTA FINAL ═══════════ */}
+      <section className="border-t border-card-border bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <div className="mx-auto mb-6 flex justify-center">
+            <Logo href={null} size="lg" centered />
           </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-card-border bg-white py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
-          <Logo href="/" size="md" />
-          <p className="text-sm text-muted text-center sm:text-right">
-            Evolua, Reposicione e Conquiste · © {new Date().getFullYear()}
-            <br />
-            Mentor de carreira · Sem promessas de contratação
+          <h2 className="font-display text-3xl text-foreground sm:text-4xl">
+            Pronto para a primeira análise?
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-muted leading-relaxed">
+            Crie sua conta e envie os materiais que você já tem. Em poucos minutos você
+            sai com um diagnóstico e próximos passos claros.
           </p>
+          <div className="mt-8">
+            <Link href="/cadastro">
+              <Button size="lg" className="min-w-[240px] shadow-md shadow-orange-900/10">
+                Criar minha primeira análise
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+          <p className="mt-4 text-sm text-muted">
+            Já tem conta?{" "}
+            <Link href="/login" className="font-semibold text-primary hover:underline">
+              Entrar
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════ FOOTER ═══════════ */}
+      <footer className="border-t border-card-border bg-white py-10">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
+          <Logo href="/" size="md" />
+          <div className="text-center text-sm text-muted sm:text-right">
+            <p className="font-medium text-foreground">Evolua, Reposicione e Conquiste.</p>
+            <p className="mt-1">
+              © {new Date().getFullYear()} CareerTwin · Mentor de carreira
+            </p>
+            <p className="mt-0.5">Sem promessas de contratação</p>
+          </div>
         </div>
       </footer>
     </div>
