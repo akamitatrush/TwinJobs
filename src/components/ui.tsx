@@ -118,7 +118,7 @@ export function Badge({
 }) {
   const tones = {
     neutral: "bg-zinc-100 text-zinc-800 border border-zinc-300",
-    primary: "bg-teal-100 text-teal-900 border border-teal-300",
+    primary: "bg-orange-100 text-orange-950 border border-orange-300",
     accent: "bg-indigo-100 text-indigo-900 border border-indigo-300",
     success: "bg-emerald-100 text-emerald-900 border border-emerald-300",
     warning: "bg-amber-100 text-amber-950 border border-amber-300",
@@ -254,7 +254,7 @@ export function Alert({
   className?: string;
 }) {
   const tones = {
-    info: "bg-teal-50 border-teal-300 text-teal-950",
+    info: "bg-orange-50 border-orange-300 text-orange-950",
     warning: "bg-amber-50 border-amber-300 text-amber-950",
     success: "bg-emerald-50 border-emerald-300 text-emerald-950",
     danger: "bg-red-50 border-red-300 text-red-950",
