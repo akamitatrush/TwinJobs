@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans, Spectral } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({
@@ -40,8 +41,11 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       className={`${sans.variable} ${display.variable} ${mono.variable} h-full`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col antialiased font-sans">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground antialiased font-sans">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

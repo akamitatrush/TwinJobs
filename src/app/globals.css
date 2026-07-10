@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
+/* Dark mode via class no <html> (next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
   CareerTwin Design System (brand-first)
-  Extraído do logo oficial:
-  — Marca: #FF5922 (laranja)
-  — Texto: #111 / #1a1a1a
-  — Superfície: branco + neutros quentes (stone)
-  — Sem teal/indigo competindo com a marca
+  Light (padrão) + Dark (toggle)
+  Marca: #FF5922
 */
 
 :root {
@@ -39,6 +39,42 @@
   --ink-elevated: #1f1f1f;
   --ink-border: #333;
   --ink-muted: #d4d4d4;
+
+  --header-bg: rgb(255 255 255 / 0.9);
+  --nav-pill: #f3f1ee;
+}
+
+.dark {
+  --brand: #ff6b38;
+  --brand-hover: #ff8a5c;
+  --brand-soft: rgba(255, 89, 34, 0.14);
+  --brand-muted: rgba(255, 89, 34, 0.28);
+
+  --background: #0a0a0e;
+  --foreground: #fafafc;
+  --card: #121216;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --muted: rgba(250, 250, 252, 0.68);
+  --muted-bg: rgba(255, 255, 255, 0.06);
+  --primary: var(--brand);
+  --primary-hover: #ff7a4d;
+  --primary-soft: var(--brand-soft);
+  --accent: #fafafc;
+  --accent-soft: rgba(255, 255, 255, 0.08);
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --ring: var(--brand);
+  --shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  --ink: #fafafc;
+  --ink-elevated: #1a1a1f;
+  --ink-border: rgba(255, 255, 255, 0.12);
+  --ink-muted: rgba(250, 250, 252, 0.55);
+
+  --header-bg: rgb(10 10 14 / 0.88);
+  --nav-pill: rgba(255, 255, 255, 0.06);
 }
 
 @theme inline {

@@ -5,9 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui";
 import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { LogOut, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard" },
@@ -19,8 +21,12 @@ const nav = [
 export function AppHeader({ fullName }: { fullName?: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted && resolvedTheme === "dark";
 
   async function logout() {
     setLoading(true);
@@ -43,11 +49,11 @@ export function AppHeader({ fullName }: { fullName?: string }) {
       .join("") || "?";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-card-border/80 bg-white/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-40 border-b border-card-border/80 bg-[var(--header-bg)] backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Logo href="/dashboard" size="sm" priority />
+        <Logo href="/dashboard" size="sm" priority onDark={isDark} />
 
-        <nav className="hidden md:flex items-center gap-0.5 rounded-full bg-muted-bg/90 p-1 ring-1 ring-card-border/80 shadow-[inset_0_1px_1px_rgba(0,0,0,0.03)]">
+        <nav className="hidden md:flex items-center gap-0.5 rounded-full bg-[var(--nav-pill)] p-1 ring-1 ring-card-border/80">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
@@ -57,7 +63,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
                 className={cn(
                   "rounded-full px-3.5 py-1.5 text-[13px] font-semibold tracking-[-0.01em] transition-all",
                   active
-                    ? "bg-white text-foreground shadow-sm ring-1 ring-black/[0.06]"
+                    ? "bg-card text-foreground shadow-sm ring-1 ring-card-border"
                     : "text-muted hover:text-foreground"
                 )}
               >
@@ -67,13 +73,14 @@ export function AppHeader({ fullName }: { fullName?: string }) {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle variant="ghost" />
           {fullName && (
-            <div className="flex items-center gap-2 rounded-full border border-card-border bg-white py-1 pl-1 pr-3 shadow-sm">
+            <div className="flex items-center gap-2 rounded-full border border-card-border bg-card py-1 pl-1 pr-3 shadow-sm">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#ff6b38] to-primary text-[11px] font-bold text-white">
                 {initials}
               </span>
-              <span className="max-w-[120px] truncate text-sm font-medium text-neutral-700">
+              <span className="max-w-[120px] truncate text-sm font-medium text-foreground/80">
                 {fullName}
               </span>
             </div>
@@ -84,18 +91,21 @@ export function AppHeader({ fullName }: { fullName?: string }) {
           </Button>
         </div>
 
-        <button
-          type="button"
-          className="md:hidden flex h-10 w-10 items-center justify-center rounded-xl border border-card-border bg-white shadow-sm hover:bg-muted-bg"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle variant="outline" />
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-card-border bg-card shadow-sm hover:bg-muted-bg"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-card-border bg-white px-4 py-3 space-y-1 shadow-lg">
+        <div className="md:hidden border-t border-card-border bg-card px-4 py-3 space-y-1 shadow-lg">
           {fullName && (
             <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted">
               {fullName}
@@ -119,7 +129,7 @@ export function AppHeader({ fullName }: { fullName?: string }) {
           <button
             type="button"
             onClick={logout}
-            className="w-full text-left rounded-xl px-3 py-2.5 text-sm font-semibold text-danger hover:bg-red-50"
+            className="w-full text-left rounded-xl px-3 py-2.5 text-sm font-semibold text-danger hover:bg-red-50 dark:hover:bg-red-500/10"
           >
             Sair
           </button>

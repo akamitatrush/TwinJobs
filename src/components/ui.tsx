@@ -43,24 +43,24 @@ const buttonVariants = cva(
         ].join(" "),
         ghost: "bg-transparent text-foreground hover:bg-muted-bg text-neutral-700",
         outline: [
-          "border border-card-border bg-white text-foreground",
+          "border border-card-border bg-card text-foreground",
           "shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
-          "hover:bg-muted-bg hover:border-neutral-300",
+          "hover:bg-muted-bg hover:border-neutral-300 dark:hover:border-white/20",
         ].join(" "),
         danger: [
           "bg-danger text-white",
           "shadow-[0_4px_12px_rgba(220,38,38,0.25)]",
-          "hover:bg-red-700",
+          "hover:opacity-90",
         ].join(" "),
         dark: [
-          "bg-neutral-900 text-white",
+          "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900",
           "shadow-[0_4px_14px_rgba(0,0,0,0.2)]",
-          "hover:bg-neutral-800",
+          "hover:bg-neutral-800 dark:hover:bg-neutral-100",
         ].join(" "),
         white: [
-          "bg-white text-neutral-900",
+          "bg-white text-neutral-900 dark:bg-card dark:text-foreground",
           "shadow-[0_4px_16px_rgba(0,0,0,0.1)]",
-          "hover:bg-neutral-50",
+          "hover:bg-neutral-50 dark:hover:bg-muted-bg",
         ].join(" "),
         "on-dark": [
           "border border-white/25 bg-white/5 text-white backdrop-blur-sm",
@@ -114,7 +114,7 @@ export function Label({
   return (
     <label
       className={cn(
-        "mb-1.5 block text-[13px] font-semibold tracking-[-0.01em] text-neutral-700",
+        "mb-1.5 block text-[13px] font-semibold tracking-[-0.01em] text-foreground/80",
         className
       )}
       {...props}
@@ -129,12 +129,12 @@ export function Input({
   return (
     <input
       className={cn(
-        "w-full h-11 rounded-xl border border-card-border bg-white px-3.5 text-sm text-foreground",
-        "placeholder:text-neutral-400",
+        "w-full h-11 rounded-xl border border-card-border bg-card px-3.5 text-sm text-foreground",
+        "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
         "shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
         "transition-[border-color,box-shadow,background] duration-200",
-        "hover:border-neutral-300",
-        "focus:border-primary focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-primary/15",
+        "hover:border-neutral-300 dark:hover:border-white/20",
+        "focus:border-primary focus:bg-card focus:outline-none focus:ring-[3px] focus:ring-primary/15",
         "disabled:cursor-not-allowed disabled:bg-muted-bg disabled:opacity-70",
         className
       )}
@@ -150,11 +150,11 @@ export function Textarea({
   return (
     <textarea
       className={cn(
-        "w-full min-h-[120px] rounded-xl border border-card-border bg-white px-3.5 py-3 text-sm text-foreground resize-y",
-        "placeholder:text-neutral-400",
+        "w-full min-h-[120px] rounded-xl border border-card-border bg-card px-3.5 py-3 text-sm text-foreground resize-y",
+        "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
         "shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
         "transition-[border-color,box-shadow,background] duration-200",
-        "hover:border-neutral-300",
+        "hover:border-neutral-300 dark:hover:border-white/20",
         "focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15",
         "disabled:cursor-not-allowed disabled:bg-muted-bg disabled:opacity-70",
         className
@@ -280,13 +280,16 @@ export function Badge({
 }) {
   const tones = {
     neutral:
-      "bg-neutral-100 text-neutral-700 border-neutral-200/80",
+      "bg-muted-bg text-foreground/80 border-card-border",
     primary:
-      "bg-primary-soft text-[color:var(--brand-hover)] border-orange-200/90",
-    accent: "bg-neutral-900 text-white border-neutral-900",
-    success: "bg-emerald-50 text-emerald-800 border-emerald-200/90",
-    warning: "bg-amber-50 text-amber-900 border-amber-200/90",
-    danger: "bg-red-50 text-red-800 border-red-200/90",
+      "bg-primary-soft text-[color:var(--brand-hover)] border-orange-200/90 dark:border-orange-500/30 dark:text-[#ffb39a]",
+    accent: "bg-foreground text-background border-foreground",
+    success:
+      "bg-emerald-50 text-emerald-800 border-emerald-200/90 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
+    warning:
+      "bg-amber-50 text-amber-900 border-amber-200/90 dark:bg-amber-500/15 dark:text-amber-200 dark:border-amber-500/30",
+    danger:
+      "bg-red-50 text-red-800 border-red-200/90 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30",
   };
   return (
     <span
@@ -318,19 +321,19 @@ export function Alert({
 }) {
   const config = {
     info: {
-      wrap: "bg-orange-50/90 border-orange-200 text-[color:var(--brand-hover)]",
+      wrap: "bg-primary-soft border-orange-200 text-[color:var(--brand-hover)] dark:border-orange-500/30 dark:text-[#ffc4b0]",
       icon: Info,
     },
     warning: {
-      wrap: "bg-amber-50 border-amber-200 text-amber-950",
+      wrap: "bg-amber-50 border-amber-200 text-amber-950 dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-100",
       icon: AlertTriangle,
     },
     success: {
-      wrap: "bg-emerald-50 border-emerald-200 text-emerald-950",
+      wrap: "bg-emerald-50 border-emerald-200 text-emerald-950 dark:bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-100",
       icon: CheckCircle2,
     },
     danger: {
-      wrap: "bg-red-50 border-red-200 text-red-950",
+      wrap: "bg-red-50 border-red-200 text-red-950 dark:bg-red-500/10 dark:border-red-500/30 dark:text-red-100",
       icon: AlertCircle,
     },
   }[tone];

@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Badge, Button, Card } from "@/components/ui";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -83,15 +86,20 @@ const steps = [
 ];
 
 export function LandingSoft() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted && resolvedTheme === "dark";
+
   return (
-    <div className="min-h-full flex flex-col bg-[#faf9f7] text-foreground">
+    <div className="min-h-full flex flex-col bg-background text-foreground">
       {/* NAV */}
       <nav
-        className="sticky top-0 z-50 border-b border-card-border/90 bg-white/90 backdrop-blur-xl"
+        className="sticky top-0 z-50 border-b border-card-border/90 bg-[var(--header-bg)] backdrop-blur-xl"
         aria-label="Navegação principal"
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Logo href="/" size="sm" priority />
+          <Logo href="/" size="sm" priority onDark={isDark} />
 
           <ul className="hidden items-center gap-7 md:flex">
             {[
@@ -112,6 +120,7 @@ export function LandingSoft() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle variant="ghost" />
             <Link href="/login" className="hidden sm:inline-flex">
               <Button variant="ghost" size="sm">
                 Entrar
@@ -180,7 +189,7 @@ export function LandingSoft() {
         </section>
 
         {/* PARA QUEM */}
-        <section id="para-quem" className="border-b border-card-border bg-white py-16 sm:py-20">
+        <section id="para-quem" className="border-b border-card-border bg-card py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <p className="text-sm font-bold text-primary">Para quem é</p>
             <h2 className="mt-2 font-display text-3xl tracking-tight text-foreground sm:text-[2.15rem]">
@@ -306,7 +315,7 @@ export function LandingSoft() {
         </section>
 
         {/* CTA MEIO */}
-        <section className="border-b border-card-border bg-white px-4 py-10 sm:px-6 lg:px-8">
+        <section className="border-b border-card-border bg-card px-4 py-10 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Card
               variant="brand"
@@ -355,7 +364,7 @@ export function LandingSoft() {
         </section>
 
         {/* FEATURES */}
-        <section className="border-b border-card-border bg-white py-16 sm:py-20">
+        <section className="border-b border-card-border bg-card py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <p className="text-sm font-bold text-primary">O que você leva</p>
             <h2 className="mt-2 font-display text-3xl tracking-tight text-foreground sm:text-[2.15rem]">
@@ -405,7 +414,7 @@ export function LandingSoft() {
               ].map((t) => (
                 <li
                   key={t}
-                  className="flex gap-3 rounded-xl border border-card-border bg-white px-4 py-3 text-sm text-muted shadow-sm"
+                  className="flex gap-3 rounded-xl border border-card-border bg-card px-4 py-3 text-sm text-muted shadow-sm"
                 >
                   <span className="font-bold text-primary">—</span>
                   {t}
@@ -443,10 +452,10 @@ export function LandingSoft() {
         </section>
       </main>
 
-      <footer className="border-t border-card-border bg-white py-10">
+      <footer className="border-t border-card-border bg-card py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-2 sm:items-start">
-            <Logo href="/" size="md" />
+            <Logo href="/" size="md" onDark={isDark} />
             <p className="text-sm text-muted">Evolua, Reposicione e Conquiste.</p>
           </div>
           <div className="text-center text-sm text-muted sm:text-right">

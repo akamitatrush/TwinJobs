@@ -53,8 +53,8 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center bg-[#faf9f7] px-4 py-12">
-      <div className="mb-8">
+    <div className="flex min-h-full flex-col items-center justify-center bg-background px-4 py-12">
+      <div className="mb-8 flex flex-col items-center gap-4">
         <Logo href="/" size="md" priority />
       </div>
 
