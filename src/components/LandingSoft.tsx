@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Logo } from "@/components/Logo";
+import { LogoWordmark } from "@/components/Logo";
 import {
   ArrowRight,
   CheckCircle2,
@@ -167,7 +167,7 @@ export function LandingSoft() {
 
             <p
               className="site-fade-up mx-auto mt-6 max-w-[34rem] text-[17px] leading-relaxed text-[var(--site-fg-muted)] sm:text-lg"
-              style={{ animationDelay: "0.15s" }}
+              style={{ animationDelay: "0.1s" }}
             >
               Diagnóstico de currículo e LinkedIn, aderência a cargos e vagas, tradução da
               experiência e plano de evolução — em português, sem inventar o que você não fez.
@@ -175,7 +175,7 @@ export function LandingSoft() {
 
             <div
               className="site-fade-up mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-              style={{ animationDelay: "0.2s" }}
+              style={{ animationDelay: "0.15s" }}
             >
               <Link href="/cadastro" className="site-btn-primary w-full sm:w-auto">
                 Começar análise
@@ -189,7 +189,7 @@ export function LandingSoft() {
             {/* Demo card suave — como o site irmão */}
             <div
               className="site-fade-up site-card-glass mx-auto mt-16 max-w-xl p-6 text-left sm:p-8"
-              style={{ animationDelay: "0.28s" }}
+              style={{ animationDelay: "0.2s" }}
             >
               <div className="flex items-center justify-between gap-3">
                 <p className="site-eyebrow !normal-case !tracking-normal">Exemplo de resultado</p>
@@ -370,8 +370,9 @@ export function LandingSoft() {
 
       <footer className="relative z-[2] border-t border-[var(--site-border)] px-6 py-12">
         <div className="mx-auto flex max-w-[1100px] flex-col items-center justify-between gap-8 sm:flex-row">
-          <div className="flex flex-col items-center gap-3 sm:items-start">
-            <Logo href="/" size="md" onDark />
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            {/* Ícone laranja + texto — sem fundo branco */}
+            <LogoWordmark href="/" size="md" />
             <p className="text-sm text-[var(--site-fg-dim)]">
               Evolua, Reposicione e Conquiste.
             </p>
