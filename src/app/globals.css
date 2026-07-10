@@ -153,7 +153,69 @@ h3,
   outline-offset: 2px;
 }
 
-/* Hero claro alinhado ao logo (laranja + branco + preto) */
+/* ─── Landing futurista (marca laranja) ─── */
+.landing-futuristic {
+  --lf-bg: #070708;
+  --lf-panel: rgb(255 255 255 / 0.04);
+  --lf-border: rgb(255 255 255 / 0.1);
+  background: var(--lf-bg);
+  color: #fafafa;
+}
+
+.landing-futuristic .grid-bg {
+  background-image:
+    linear-gradient(rgb(255 89 34 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 89 34 / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%);
+}
+
+.landing-futuristic .glow-orb {
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.landing-futuristic .glass {
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.landing-futuristic .glass-strong {
+  background: rgb(12 12 14 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.landing-futuristic .text-gradient-brand {
+  background: linear-gradient(135deg, #fff 0%, #ffb39a 45%, #ff5922 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes beam {
+  0% {
+    transform: translateY(-20%) translateX(-10%);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(20%) translateX(10%);
+    opacity: 0.3;
+  }
+}
+
+.landing-futuristic .beam {
+  animation: beam 12s ease-in-out infinite;
+}
+
+/* Hero claro (fallback / seções mistas) */
 .hero-brand {
   background:
     radial-gradient(ellipse 80% 60% at 0% 0%, rgb(255 89 34 / 14%), transparent 55%),
