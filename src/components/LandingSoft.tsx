@@ -142,11 +142,6 @@ export function LandingSoft() {
           />
 
           <div className="relative z-[2] w-full max-w-[720px]">
-            {/* Logo limpo no início — sem caixa */}
-            <div className="site-fade-up mb-8 flex justify-center">
-              <LogoWordmark href={null} size="lg" />
-            </div>
-
             <p className="site-eyebrow site-fade-up mb-5 flex items-center justify-center gap-2">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--site-accent)]" />
               MVP · recolocação e transição de carreira
