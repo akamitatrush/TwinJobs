@@ -5,6 +5,7 @@ import { LogoWordmark } from "@/components/Logo";
 import {
   ArrowRight,
   CheckCircle2,
+  FileText,
   GitCompare,
   Lock,
   MessageSquareQuote,
@@ -13,73 +14,74 @@ import {
   Target,
 } from "lucide-react";
 
+/** O que o MVP entrega de verdade — copy alinhada ao produto */
 const features = [
+  {
+    icon: FileText,
+    title: "Análise a partir do que você envia",
+    text: "Você cola o texto do currículo e do LinkedIn (e pode guardar PDF). A análise usa esse conteúdo — não inventamos cargos, ferramentas nem resultados.",
+    foot: "PDF é armazenado; o texto colado alimenta o diagnóstico.",
+  },
   {
     icon: Sparkles,
     title: "Recomendações priorizadas",
-    text: "O que ajustar no currículo e no LinkedIn, por impacto e esforço — com ação clara e justificativa.",
-    foot: "Comece pelo que move o ponteiro.",
+    text: "Lista o que melhorar no currículo e no LinkedIn, com impacto, esforço, urgência e ação sugerida. Você marca o que já fez.",
+    foot: "Prioridade, não um texto genérico de chat.",
   },
   {
     icon: Target,
-    title: "Aderência a cargos e vagas",
-    text: "Score de 0 a 100 e leitura honesta: lacuna real, de comunicação ou de evidência.",
-    foot: "Decida se aplica agora ou desenvolve antes.",
+    title: "Aderência a cargo e vaga",
+    text: "Score de 0 a 100 para o cargo-alvo e, se você colar uma vaga, um diagnóstico extra com recomendação de candidatura.",
+    foot: "Não é promessa de vaga — é leitura de alinhamento.",
   },
   {
     icon: MessageSquareQuote,
     title: "Tradução da experiência",
-    text: "Reescreva trechos reais em linguagem de mercado, com alerta de autenticidade em cada sugestão.",
-    foot: "Sem inventar o que você não fez.",
+    text: "Sugestões de como reescrever trechos reais em linguagem de mercado, sempre com alerta de autenticidade.",
+    foot: "Só use se aquilo realmente fez parte da sua trajetória.",
   },
   {
     icon: GitCompare,
-    title: "Plano de evolução",
-    text: "Checklist com prazos e critérios de sucesso. Marque o que concluiu e reanalise depois.",
-    foot: "Evolução mensurável, semana a semana.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Honestidade por design",
-    text: "Não prometemos contratação. Não inventamos métricas. A proposta é clareza e estratégia.",
-    foot: "Você é o cliente, não o produto.",
+    title: "Plano e reanálise",
+    text: "Plano de ações com status. Depois de ajustar materiais, você pode gerar outra análise e ver o comparativo de score.",
+    foot: "Histórico no dashboard, progresso visível.",
   },
   {
     icon: Lock,
-    title: "Dados só seus",
-    text: "RLS no banco e storage privado: cada usuário acessa apenas as próprias análises e arquivos.",
-    foot: "Privacidade no centro do produto.",
+    title: "Conta e privacidade",
+    text: "Login com e-mail. Cada usuário só acessa as próprias análises e arquivos (RLS no banco e pasta privada no storage).",
+    foot: "Seus dados não aparecem para outros usuários.",
   },
 ];
 
 const steps = [
   {
     n: "01",
-    time: "poucos minutos",
-    title: "Envie currículo e LinkedIn",
-    text: "Cole o texto dos seus materiais (e o cargo-alvo). PDF pode ser guardado; a análise usa o texto que você envia.",
+    time: "cadastro + wizard",
+    title: "Crie a conta e envie o que você tem",
+    text: "Informe currículo (texto), LinkedIn (link e/ou texto), cargo-alvo e, se quiser, uma vaga. Arquivos complementares são opcionais.",
   },
   {
     n: "02",
-    time: "segundos",
-    title: "Receba o diagnóstico",
-    text: "Score, recomendações, aderência, tradução da experiência e plano — sempre no mesmo formato estruturado.",
+    time: "geração da análise",
+    title: "Receba um resultado em cinco abas",
+    text: "Visão geral, recomendações, aderência, tradução da experiência e plano de evolução — sempre no mesmo formato estruturado.",
   },
   {
     n: "03",
-    time: "iteração contínua",
-    title: "Execute e reanalise",
-    text: "Marque ações feitas, atualize seus materiais e compare a evolução entre versões.",
+    time: "no seu ritmo",
+    title: "Execute, marque e volte se quiser",
+    text: "Marque recomendações e ações como feitas. Quando atualizar o material, faça uma reanálise e compare a evolução.",
   },
 ];
 
 const trust = [
-  "LGPD-friendly (RLS)",
-  "Sem promessa de contratação",
+  "Sem promessa de emprego",
   "Sem inventar experiência",
-  "Schema JSON estável",
-  "Mock ou Grok / OpenAI",
-  "Brasil · pt-BR",
+  "Texto do CV / LinkedIn",
+  "Vaga opcional",
+  "5 abas de resultado",
+  "Dados só seus",
 ];
 
 export function LandingSoft() {
@@ -88,28 +90,19 @@ export function LandingSoft() {
       <div aria-hidden className="pointer-events-none fixed inset-0 site-mesh" />
       <div aria-hidden className="pointer-events-none fixed inset-0 site-noise" />
 
-      {/* NAV — estilo careertwin.com.br */}
+      {/* NAV */}
       <nav
-        className="fixed inset-x-0 top-0 z-[100] border-b border-transparent"
+        className="fixed inset-x-0 top-0 z-[100] border-b border-[var(--site-border)]/80 bg-[var(--site-bg)]/80 backdrop-blur-xl"
         aria-label="Navegação principal"
       >
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-[18px]">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[-0.01em] text-[var(--site-fg)] no-underline"
-          >
-            <span
-              aria-hidden
-              className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--site-accent)] shadow-[0_0_16px_var(--site-accent-glow)]"
-            />
-            CareerTwin
-          </Link>
+        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-3.5">
+          <LogoWordmark href="/" size="sm" />
 
           <ul className="hidden items-center gap-8 md:flex">
             {[
               { href: "#como-funciona", label: "Como funciona" },
-              { href: "#o-que-voce-recebe", label: "O que você recebe" },
-              { href: "#honestidade", label: "Honestidade" },
+              { href: "#o-que-voce-recebe", label: "O que entregamos" },
+              { href: "#limites", label: "Limites honestos" },
             ].map((l) => (
               <li key={l.href}>
                 <a
@@ -130,7 +123,7 @@ export function LandingSoft() {
               Entrar
             </Link>
             <Link href="/cadastro" className="site-btn-primary !px-[18px] !py-2.5 !text-sm">
-              Começar grátis
+              Criar conta
             </Link>
           </div>
         </div>
@@ -138,7 +131,7 @@ export function LandingSoft() {
 
       <main className="relative z-[2]">
         {/* HERO */}
-        <section className="relative flex min-h-[100vh] flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-36 text-center sm:pt-40">
+        <section className="relative flex min-h-[min(100vh,900px)] flex-col items-center justify-center overflow-hidden px-6 pb-16 pt-32 text-center sm:pt-36">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 z-0"
@@ -148,88 +141,91 @@ export function LandingSoft() {
             }}
           />
 
-          <div className="relative z-[2] w-full max-w-[1100px]">
-            <p className="site-eyebrow site-fade-up mb-7 flex items-center justify-center gap-2">
+          <div className="relative z-[2] w-full max-w-[720px]">
+            {/* Logo limpo no início — sem caixa */}
+            <div className="site-fade-up mb-8 flex justify-center">
+              <LogoWordmark href={null} size="lg" />
+            </div>
+
+            <p className="site-eyebrow site-fade-up mb-5 flex items-center justify-center gap-2">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--site-accent)]" />
-              Brasil · mentor de carreira com IA
+              MVP · recolocação e transição de carreira
             </p>
 
             <h1
-              className="site-h-display site-fade-up mx-auto max-w-[18ch] text-[clamp(2.25rem,5.5vw,3.75rem)]"
+              className="site-h-display site-fade-up mx-auto text-[clamp(2rem,5vw,3.25rem)]"
               style={{ animationDelay: "0.05s" }}
             >
-              Pare de mandar CV genérico.{" "}
+              Um mentor de carreira para{" "}
               <em className="not-italic text-[var(--site-accent)] sm:italic">
-                Clareza de mercado
-              </em>
-              , sem caixa-preta.
+                comunicar melhor
+              </em>{" "}
+              o que você já fez.
             </h1>
 
             <p
-              className="site-fade-up mx-auto mt-6 max-w-[34rem] text-[17px] leading-relaxed text-[var(--site-fg-muted)] sm:text-lg"
+              className="site-fade-up mx-auto mt-5 max-w-[36rem] text-[16px] leading-relaxed text-[var(--site-fg-muted)] sm:text-[17px]"
               style={{ animationDelay: "0.1s" }}
             >
-              Diagnóstico de currículo e LinkedIn, aderência a cargos e vagas, tradução da
-              experiência e plano de evolução — em português, sem inventar o que você não fez.
+              O CareerTwin analisa o material que <strong className="font-medium text-[var(--site-fg)]">você envia</strong> —
+              currículo, LinkedIn, cargo-alvo e vaga opcional — e devolve recomendações,
+              aderência, tradução da experiência e um plano de ações.{" "}
+              <strong className="font-medium text-[var(--site-fg)]">
+                Não promete emprego. Não inventa trajetória.
+              </strong>
             </p>
 
             <div
-              className="site-fade-up mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+              className="site-fade-up mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
               style={{ animationDelay: "0.15s" }}
             >
               <Link href="/cadastro" className="site-btn-primary w-full sm:w-auto">
-                Começar análise
+                Criar conta e analisar
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a href="#como-funciona" className="site-btn-secondary w-full sm:w-auto">
-                Ver como funciona
+                Ver o fluxo real
               </a>
             </div>
 
-            {/* Demo card suave — como o site irmão */}
-            <div
-              className="site-fade-up site-card-glass mx-auto mt-16 max-w-xl p-6 text-left sm:p-8"
-              style={{ animationDelay: "0.2s" }}
+            <p
+              className="site-fade-up mt-5 text-sm text-[var(--site-fg-dim)]"
+              style={{ animationDelay: "0.18s" }}
             >
-              <div className="flex items-center justify-between gap-3">
-                <p className="site-eyebrow !normal-case !tracking-normal">Exemplo de resultado</p>
-                <span className="rounded-full bg-[var(--site-accent)]/15 px-2.5 py-0.5 text-xs font-semibold text-[var(--site-accent)]">
-                  Boa aderência
-                </span>
-              </div>
-              <div className="mt-5 flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-sm text-[var(--site-fg-dim)]">Score de aderência</p>
-                  <p className="mt-1 font-display text-5xl font-semibold text-[var(--site-fg)]">
-                    72
-                  </p>
-                </div>
-                <div className="h-16 w-16 rounded-full border-[5px] border-white/10 border-t-[var(--site-accent)] border-r-[var(--site-accent)]/40" />
-              </div>
-              <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-[72%] rounded-full bg-[var(--site-accent)]" />
-              </div>
-              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              Grátis no MVP · conta com e-mail · resultado salvo no seu dashboard
+            </p>
+
+            {/* Preview honesto do que o app mostra */}
+            <div
+              className="site-fade-up site-card-glass mx-auto mt-14 max-w-lg p-6 text-left sm:p-7"
+              style={{ animationDelay: "0.22s" }}
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-[var(--site-fg-dim)]">
+                O que você vê depois da análise
+              </p>
+              <ul className="mt-4 space-y-3">
                 {[
-                  { k: "Forte", v: "Rotinas e entrega" },
-                  { k: "Lacuna", v: "Evidências" },
-                  { k: "Próximo", v: "Título LinkedIn" },
-                ].map((x) => (
-                  <div
-                    key={x.k}
-                    className="rounded-[10px] border border-[var(--site-border)] bg-white/[0.03] p-3"
+                  "Visão geral com score e confiança da análise",
+                  "Recomendações para currículo e LinkedIn",
+                  "Aderência ao cargo (e à vaga, se enviou)",
+                  "Tradução de trechos + alerta de autenticidade",
+                  "Plano de evolução com itens para marcar",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-sm text-[var(--site-fg-muted)]"
                   >
-                    <p className="text-[11px] font-medium text-[var(--site-fg-dim)]">{x.k}</p>
-                    <p className="mt-1 text-sm font-semibold text-[var(--site-fg)]">{x.v}</p>
-                  </div>
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--site-accent)]" />
+                    {item}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* TRUST BAR */}
-        <section className="border-y border-[var(--site-border)] py-8">
+        {/* TRUST */}
+        <section className="border-y border-[var(--site-border)] py-7">
           <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-2 px-6 sm:gap-3">
             {trust.map((t) => (
               <span
@@ -242,16 +238,16 @@ export function LandingSoft() {
           </div>
         </section>
 
-        {/* FEATURES */}
+        {/* O QUE ENTREGAMOS */}
         <section id="o-que-voce-recebe" className="px-6 py-20 sm:py-24">
           <div className="mx-auto max-w-[1100px]">
-            <p className="site-eyebrow mb-4">O que você recebe</p>
-            <h2 className="site-h-display max-w-[16ch] text-[clamp(1.75rem,3.5vw,2.5rem)]">
-              Clareza para decidir o próximo passo
+            <p className="site-eyebrow mb-4">O que entregamos de verdade</p>
+            <h2 className="site-h-display max-w-[18ch] text-[clamp(1.75rem,3.5vw,2.5rem)]">
+              Só o que o produto faz hoje
             </h2>
-            <p className="mt-4 max-w-xl text-[var(--site-fg-muted)] leading-relaxed">
-              Diferente de um chat genérico: formato estável, prioridades e plano que você
-              consegue executar.
+            <p className="mt-4 max-w-2xl text-[var(--site-fg-muted)] leading-relaxed">
+              Sem vitrine de features futuras. Abaixo está o que você consegue usar assim que
+              criar a conta neste MVP.
             </p>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -274,12 +270,18 @@ export function LandingSoft() {
         </section>
 
         {/* COMO FUNCIONA */}
-        <section id="como-funciona" className="border-t border-[var(--site-border)] px-6 py-20 sm:py-24">
+        <section
+          id="como-funciona"
+          className="border-t border-[var(--site-border)] px-6 py-20 sm:py-24"
+        >
           <div className="mx-auto max-w-[1100px]">
             <p className="site-eyebrow mb-4">Como funciona</p>
-            <h2 className="site-h-display max-w-[14ch] text-[clamp(1.75rem,3.5vw,2.5rem)]">
-              Três momentos. Zero enrolação.
+            <h2 className="site-h-display max-w-[16ch] text-[clamp(1.75rem,3.5vw,2.5rem)]">
+              Do cadastro ao plano, sem atalho mágico
             </h2>
+            <p className="mt-4 max-w-xl text-[var(--site-fg-muted)] leading-relaxed">
+              O fluxo real do app — o mesmo que você percorre depois do login.
+            </p>
 
             <div className="mt-14 space-y-10">
               {steps.map((s) => (
@@ -305,39 +307,67 @@ export function LandingSoft() {
           </div>
         </section>
 
-        {/* HONESTIDADE */}
-        <section id="honestidade" className="border-t border-[var(--site-border)] px-6 py-20">
+        {/* LIMITES HONESTOS */}
+        <section id="limites" className="border-t border-[var(--site-border)] px-6 py-20">
           <div className="mx-auto max-w-[1100px]">
             <div className="site-card-glass p-8 sm:p-12">
               <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-[var(--site-accent)] text-white shadow-[0_8px_24px_var(--site-accent-glow)]">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
+                  <p className="site-eyebrow mb-2 text-[var(--site-accent)]">Transparência</p>
                   <h2 className="site-h-display text-[clamp(1.5rem,3vw,2.25rem)]">
-                    Compromisso de honestidade
+                    O que este MVP <em className="not-italic sm:italic">não</em> faz
                   </h2>
                   <p className="mt-4 max-w-2xl text-[var(--site-fg-muted)] leading-relaxed">
-                    O CareerTwin não promete contratação e não inventa experiências. A proposta
-                    é ajudar você a comunicar melhor sua trajetória e tomar decisões mais
-                    estratégicas.
+                    Preferimos ser claros. Assim você usa a ferramenta pelo valor certo —
+                    posicionamento e plano — e não por uma expectativa que o produto não
+                    cumpre.
                   </p>
-                  <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                    {[
-                      "Não cria métricas falsas",
-                      "Não substitui recrutadores",
-                      "Lacuna real ≠ comunicação",
-                      "Dados protegidos por RLS",
-                    ].map((t) => (
-                      <li
-                        key={t}
-                        className="flex items-center gap-2 text-sm font-medium text-[var(--site-fg)]"
-                      >
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-[var(--site-accent)]" />
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                    <div>
+                      <p className="text-sm font-semibold text-[var(--site-fg)]">Fazemos</p>
+                      <ul className="mt-3 space-y-2">
+                        {[
+                          "Analisar texto de currículo e LinkedIn",
+                          "Sugerir melhorias e reescritas com ressalvas",
+                          "Avaliar aderência a cargo e vaga colada",
+                          "Salvar histórico e permitir reanálise",
+                        ].map((t) => (
+                          <li
+                            key={t}
+                            className="flex gap-2 text-sm text-[var(--site-fg-muted)]"
+                          >
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--site-accent)]" />
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-[var(--site-fg)]">Não fazemos</p>
+                      <ul className="mt-3 space-y-2">
+                        {[
+                          "Prometer contratação ou entrevista",
+                          "Inventar experiências ou métricas",
+                          "Scraping automático do LinkedIn",
+                          "Ler PDF magicamente (cole o texto)",
+                          "Buscar vagas na internet por você",
+                        ].map((t) => (
+                          <li
+                            key={t}
+                            className="flex gap-2 text-sm text-[var(--site-fg-muted)]"
+                          >
+                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center text-[var(--site-fg-dim)]">
+                              —
+                            </span>
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -347,17 +377,20 @@ export function LandingSoft() {
         {/* CTA */}
         <section className="border-t border-[var(--site-border)] px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <p className="site-eyebrow mb-4">Pronto?</p>
-            <h2 className="site-h-display text-[clamp(1.75rem,3.5vw,2.75rem)]">
-              Crie sua primeira análise
+            <div className="mb-6 flex justify-center">
+              <LogoWordmark href={null} size="md" />
+            </div>
+            <p className="site-eyebrow mb-4">Começar</p>
+            <h2 className="site-h-display text-[clamp(1.75rem,3.5vw,2.5rem)]">
+              Pronto para a primeira análise?
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[var(--site-fg-muted)] leading-relaxed">
-              Envie os materiais que você já tem. Em poucos minutos você sai com diagnóstico e
-              próximos passos.
+              Crie a conta, cole o texto do seu currículo e do LinkedIn, informe o cargo-alvo
+              e gere o diagnóstico. Você pode voltar depois e marcar o que já executou.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href="/cadastro" className="site-btn-primary w-full sm:w-auto">
-                Começar grátis
+                Criar conta
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/login" className="site-btn-secondary w-full sm:w-auto">
@@ -371,7 +404,6 @@ export function LandingSoft() {
       <footer className="relative z-[2] border-t border-[var(--site-border)] px-6 py-12">
         <div className="mx-auto flex max-w-[1100px] flex-col items-center justify-between gap-8 sm:flex-row">
           <div className="flex flex-col items-center gap-2 sm:items-start">
-            {/* Ícone laranja + texto — sem fundo branco */}
             <LogoWordmark href="/" size="md" />
             <p className="text-sm text-[var(--site-fg-dim)]">
               Evolua, Reposicione e Conquiste.
@@ -379,18 +411,7 @@ export function LandingSoft() {
           </div>
           <div className="text-center text-sm text-[var(--site-fg-dim)] sm:text-right">
             <p>© {new Date().getFullYear()} CareerTwin</p>
-            <p className="mt-1">Mentor de carreira · Sem promessas de contratação</p>
-            <p className="mt-3 text-xs">
-              Produto irmão de{" "}
-              <a
-                href="https://careertwin.com.br"
-                className="text-[var(--site-fg-muted)] underline-offset-2 hover:text-[var(--site-accent)] hover:underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                careertwin.com.br
-              </a>
-            </p>
+            <p className="mt-1">Mentor de carreira · MVP · Sem promessas de contratação</p>
           </div>
         </div>
       </footer>
