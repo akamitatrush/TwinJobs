@@ -322,7 +322,7 @@ export function normalizeAnalysisResult(raw: unknown): unknown {
     );
   }
 
-  let experience_translations = ensureArray(
+  const experience_translations = ensureArray(
     root.experience_translations ?? root.translations ?? root.traducoes
   ).map(normalizeTranslation);
 
