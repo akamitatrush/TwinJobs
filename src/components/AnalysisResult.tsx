@@ -87,6 +87,7 @@ export function AnalysisResult({
   const [feedbackRating, setFeedbackRating] = useState(existingFeedback?.rating || "");
   const [feedbackComment, setFeedbackComment] = useState(existingFeedback?.comment || "");
   const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const [reanalyzeLoading, setReanalyzeLoading] = useState(false);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -156,6 +157,37 @@ export function AnalysisResult({
       showToast("Erro ao enviar feedback.");
     } finally {
       setFeedbackLoading(false);
+    }
+  }
+
+  /** Reanalisa com os mesmos textos já salvos + ações/recs concluídas — sem wizard. */
+  async function reanalyzeWithStoredMaterials() {
+    if (reanalyzeLoading) return;
+    setReanalyzeLoading(true);
+    showToast("Reanalisando com o material já enviado…");
+    try {
+      const res = await fetch("/api/reanalyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ analysis_id: analysis.id }),
+      });
+      const json = (await res.json()) as {
+        error?: string;
+        analysis_id?: string;
+        score_change?: number;
+        usedFallback?: boolean;
+      };
+      if (!res.ok) {
+        throw new Error(json.error || "Falha na reanálise.");
+      }
+      if (json.analysis_id) {
+        window.location.href = `/analise/${json.analysis_id}`;
+        return;
+      }
+      throw new Error("Resposta sem id da nova análise.");
+    } catch (err) {
+      showToast(err instanceof Error ? err.message : "Erro ao reanalisar.");
+      setReanalyzeLoading(false);
     }
   }
 
@@ -803,16 +835,36 @@ export function AnalysisResult({
             ))}
           </div>
 
-          <Card className="border-primary/15 bg-primary-soft/30 text-center">
-            <p className="text-sm text-muted max-w-lg mx-auto">
-              Depois de ajustar seus materiais ou concluir ações importantes, faça uma nova
-              análise para comparar sua evolução.
+          <Card className="border-primary/15 bg-primary-soft/30">
+            <h3 className="font-semibold text-foreground text-center sm:text-left">
+              Reanalisar evolução
+            </h3>
+            <p className="mt-2 text-sm text-muted max-w-xl mx-auto sm:mx-0 leading-relaxed">
+              <strong className="font-semibold text-foreground">Com o mesmo material</strong> que
+              você já enviou: o mentor usa o texto salvo e as ações/recomendações que você marcou
+              como concluídas. Não reescreve o PDF sozinho — se você atualizou o CV/LinkedIn de
+              verdade, o ideal é colar o texto novo.
             </p>
-            <div className="mt-4">
-              <Link href={`/analise/nova?reanalise=${analysis.id}`}>
-                <Button>
-                  <RefreshCw className="h-4 w-4" />
-                  Fazer nova análise
+            {planDone > 0 && (
+              <p className="mt-2 text-xs text-muted mx-auto sm:mx-0">
+                {planDone} ação(ões) do plano marcada(s) como concluída(s) serão consideradas no
+                diagnóstico.
+              </p>
+            )}
+            <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+              <Button
+                onClick={reanalyzeWithStoredMaterials}
+                disabled={reanalyzeLoading}
+                className="w-full sm:w-auto"
+              >
+                <RefreshCw className={`h-4 w-4 ${reanalyzeLoading ? "animate-spin" : ""}`} />
+                {reanalyzeLoading
+                  ? "Reanalisando…"
+                  : "Reanalisar com este material"}
+              </Button>
+              <Link href={`/analise/nova?reanalise=${analysis.id}`} className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full" disabled={reanalyzeLoading}>
+                  Enviar material atualizado
                 </Button>
               </Link>
             </div>

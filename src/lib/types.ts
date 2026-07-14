@@ -207,4 +207,8 @@ export interface GenerateAnalysisInput {
   job_description_text: string;
   complementary_files_text: string;
   market_terms?: string[];
+  /** Ações do plano que o usuário marcou como concluídas (reanálise rápida) */
+  completed_plan_actions?: string[];
+  /** Recomendações marcadas como concluídas */
+  completed_recommendations?: string[];
 }
